@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log - FlowCare</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Log Today</h2>
+
+  <!-- FLOW -->
+  <div class="card">
+    <p>🩸 Flow</p>
+    <select id="flow">
+      <option value="none">None</option>
+      <option value="light">Light</option>
+      <option value="medium">Medium</option>
+      <option value="heavy">Heavy</option>
+    </select>
+  </div>
+
+  <!-- SYMPTOMS -->
+  <div class="card">
+    <p>😣 Symptoms</p>
+    <label><input type="checkbox" value="cramps"> Cramps</label><br>
+    <label><input type="checkbox" value="headache"> Headache</label><br>
+    <label><input type="checkbox" value="fatigue"> Fatigue</label><br>
+    <label><input type="checkbox" value="bloating"> Bloating</label>
+  </div>
+
+  <!-- MOOD -->
+  <div class="card">
+    <p>😊 Mood</p>
+    <select id="mood">
+      <option value="happy">Happy</option>
+      <option value="neutral">Neutral</option>
+      <option value="sad">Sad</option>
+      <option value="irritated">Irritated</option>
+    </select>
+  </div>
+
+  <!-- PADS -->
+  <div class="card">
+    <p>🧻 Pads Used</p>
+    <input type="number" id="pads" min="0" max="10" value="0">
+  </div>
+
+  <button onclick="saveLog()">Save Entry</button>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="#">Calendar</a>
+  <a href="log.html">Log</a>
+  <a href="#">Settings</a>
+</div>
+
+<script src="js/log.js"></script>
+</body>
+</html>
