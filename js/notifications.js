@@ -34,7 +34,7 @@ function checkPeriodReminder() {
   const today = new Date();
   const diffDays = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 2) {
+  if (diffDays <= 2) {
     showNotification("FlowCare Reminder 💡", "Your period is likely in 2 days. Stay prepared!");
   }
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - FlowCare</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Settings</h2>
+
+  <!-- PROFILE -->
+  <div class="card">
+    <p>👤 Name</p>
+    <input type="text" id="username" placeholder="Enter your name">
+  </div>
+
+  <!-- CYCLE SETTINGS -->
+  <div class="card">
+    <p>📊 Cycle Length (days)</p>
+    <input type="number" id="cycleLength" value="28">
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="card">
+    <p>🔔 Notifications</p>
+    <label>
+      <input type="checkbox" id="notifToggle"> Enable Notifications
+    </label>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="card">
+    <p>🔒 Privacy</p>
+    <button onclick="setPIN()">Set App PIN</button>
+  </div>
+
+  <!-- RESET -->
+  <div class="card">
+    <p>⚠️ Danger Zone</p>
+    <button onclick="resetData()">Reset All Data</button>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="log.html">Log</a>
+  <a href="insights.html">Insights</a>
+  <a href="settings.html" class="active">Settings</a>
+</div>
+
+<script src="js/settings.js"></script>
+</body>
+</html>
