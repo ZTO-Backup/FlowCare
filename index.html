@@ -7,72 +7,90 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
+<body>
+
+<!-- 🔒 LOCK SCREEN -->
 <div id="lockScreen" class="lock-screen">
   <div class="lock-box">
-  <h3>🔒 Enter PIN</h3>
-  <input type="password" id="pinInput" placeholder="Enter PIN">
-  <button onclick="unlockApp()">Unlock</button>
-  <p id="pinError" style="color:red;"></p>
+    <h3>🔒 Enter PIN</h3>
+    <input type="password" id="pinInput" placeholder="Enter PIN">
+    <button onclick="unlockApp()">Unlock</button>
+    <p id="pinError" style="color:red;"></p>
   </div>
 </div>
-
-<body>
 
 <div class="container">
 
-  <h2 id="greeting">Hi 👋</h2>
-
-  <div class="card">
-    <p>🩸 Next Period:</p>
-    <h3 id="nextPeriod">--</h3>
+  <!-- HEADER -->
+  <div class="header-card">
+    <h2 id="greeting">Hi 👋</h2>
+    <p class="sub">Your body, your rhythm</p>
   </div>
 
-  <div class="card">
-    <p>📊 Cycle Day:</p>
-    <h3 id="cycleDay">--</h3>
+  <!-- MAIN STATUS -->
+  <div class="status-grid">
+
+    <div class="status-card">
+      <p>🩸 Next Period</p>
+      <h3 id="nextPeriod">--</h3>
+    </div>
+
+    <div class="status-card">
+      <p>📊 Cycle Day</p>
+      <h3 id="cycleDay">--</h3>
+    </div>
+
+    <div class="status-card">
+      <p>🌼 Ovulation</p>
+      <h3 id="ovulation">--</h3>
+    </div>
+
   </div>
 
+  <!-- ACTION -->
   <div class="card">
-    <p>⚠️ Ovulation:</p>
-    <h3 id="ovulation">--</h3>
+    <a href="log.html" style="text-decoration:none;">
+      <button>Log Today</button>
+    </a>
   </div>
 
-  <div class="card">
-    <a href="log.html"><button>Log Symptoms</button></a>
-  </div>
-
-  <div class="card">
-    <p>💡 Tip:</p>
+  <!-- ADVICE -->
+  <div class="card highlight">
+    <p>💡 Today’s Advice</p>
     <small id="tip">Stay hydrated</small>
   </div>
 
-  <div class="card">
-      <a href="education.html">📘 Learn about your health</a>
-      </div>
-
+  <!-- EMERGENCY KIT -->
   <div class="card" id="kitCard" style="display:none;">
     <p>🧰 Emergency Kit</p>
     <ul>
-    <li>Pads / Tampons</li>
-    <li>Pain relief</li>
-    <li>Tissue</li>
-    <li>Spare underwear</li>
+      <li>Pads / Tampons</li>
+      <li>Pain relief</li>
+      <li>Tissue</li>
+      <li>Spare underwear</li>
     </ul>
- </div>
+  </div>
+
+  <!-- LEARN -->
+  <div class="card">
+    <a href="education.html">📘 Learn about your health</a>
+  </div>
 
 </div>
 
-<!-- Bottom Nav -->
+<!-- 📱 NAVIGATION -->
 <div class="nav">
- <a href="index.html" class="active">Home</a>
- <a href="calendar.html">Calendar</a>
+  <a href="index.html" class="active">Home</a>
+  <a href="calendar.html">Calendar</a>
   <a href="log.html">Log</a>
   <a href="insights.html">Insights</a>
- <a href="settings.html">Settings</a>
+  <a href="settings.html">Settings</a>
 </div>
 
+<!-- ⚙️ SCRIPTS -->
 <script src="js/app.js"></script>
 <script src="js/notifications.js"></script>
 <script src="js/lock.js"></script>
+
 </body>
 </html>
