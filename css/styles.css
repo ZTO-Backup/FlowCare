@@ -180,16 +180,16 @@ small {
   overflow: hidden;
   white-space: nowrap;
   background: #fff;
-  padding: 8px;
-  border-radius: 10px;
-  margin-bottom: 15px;
+  padding: 6px;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .marquee p {
   display: inline-block;
-  animation: scrollText 12s linear infinite;
+  animation: scrollText 12s linear;
   color: #ff4d6d;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 @keyframes scrollText {

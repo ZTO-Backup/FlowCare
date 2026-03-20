@@ -1,29 +1,62 @@
-// LOAD SETTINGS
-let cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
-let username = localStorage.getItem("username") || "Queen";
+// =======================
+// 🧰 HELPERS
+// =======================
 
-// Load logs
-let logs = JSON.parse(localStorage.getItem("logs")) || [];
+function getLogs() {
+  return JSON.parse(localStorage.getItem("logs")) || [];
+}
 
-// Get last period start (first day user logged "flow")
+function saveLogs(logs) {
+  localStorage.setItem("logs", JSON.stringify(logs));
+}
+
+function getToday() {
+  return new Date().toISOString().split("T")[0];
+}
+
+// =======================
+// ⚙️ SETTINGS
+// =======================
+
+const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
+const username = localStorage.getItem("username") || "Queen";
+
+// =======================
+// 👋 GREETING
+// =======================
+
+const greetingEl = document.getElementById("greeting");
+if (greetingEl) {
+  greetingEl.innerText = `Hi, ${username} 👋`;
+}
+
+// =======================
+// 🩸 CYCLE CALCULATION
+// =======================
+
 function getLastPeriodDate() {
+  const logs = getLogs();
+
   const periodLogs = logs
-    .filter(log => log.flow !== "none")
+    .filter(log => log.flow && log.flow !== "none")
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return periodLogs.length ? periodLogs[0].date : null;
 }
 
-// Greeting
-document.getElementById("greeting").innerText = `Hi, ${username} 👋`;
-
 function calculateCycle() {
   const lastPeriodDate = getLastPeriodDate();
 
+  const nextEl = document.getElementById("nextPeriod");
+  const dayEl = document.getElementById("cycleDay");
+  const ovuEl = document.getElementById("ovulation");
+
+  if (!nextEl || !dayEl || !ovuEl) return;
+
   if (!lastPeriodDate) {
-    document.getElementById("nextPeriod").innerText = "Log period first";
-    document.getElementById("cycleDay").innerText = "--";
-    document.getElementById("ovulation").innerText = "--";
+    nextEl.innerText = "Log period first";
+    dayEl.innerText = "--";
+    ovuEl.innerText = "--";
     return;
   }
 
@@ -33,82 +66,83 @@ function calculateCycle() {
   const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
   const cycleDay = (diffDays % cycleLength) + 1;
 
-  // Next period
   const nextPeriodDate = new Date(lastDate);
   nextPeriodDate.setDate(lastDate.getDate() + cycleLength);
 
   const daysLeft = Math.ceil((nextPeriodDate - today) / (1000 * 60 * 60 * 24));
 
-  // Ovulation
   const ovulationDay = cycleLength - 14;
   const ovulationIn = ovulationDay - cycleDay;
 
-  // Display
-  document.getElementById("cycleDay").innerText = "Day " + cycleDay;
-  document.getElementById("nextPeriod").innerText = daysLeft + " days";
-  document.getElementById("ovulation").innerText =
-    ovulationIn > 0 ? ovulationIn + " days" : "Passed";
-
-  updatePadsUsed();
+  dayEl.innerText = "Day " + cycleDay;
+  nextEl.innerText = daysLeft + " days";
+  ovuEl.innerText = ovulationIn > 0 ? ovulationIn + " days" : "Passed";
 }
 
-// Pads summary
-function updatePadsUsed() {
-  let totalPads = 0;
+// =======================
+// 📦 PADS SUMMARY
+// =======================
 
+function updatePadsUsed() {
+  const logs = getLogs();
+
+  let total = 0;
   logs.forEach(log => {
-    totalPads += Number(log.pads || 0);
+    total += Number(log.pads || 0);
   });
 
-  const tip = document.getElementById("tip");
-  tip.innerText = "Pads used this cycle: " + totalPads;
+  const el = document.getElementById("padsUsed");
+  if (el) el.innerText = "Pads used: " + total;
 }
 
-calculateCycle();
+// =======================
+// 💡 ADVICE ENGINE
+// =======================
 
 function showAdvice() {
-  let logs = JSON.parse(localStorage.getItem("logs")) || [];
+  const logs = getLogs();
+  const todayLog = logs.find(log => log.date === getToday());
 
-  const today = new Date().toISOString().split("T")[0];
-
-  const todayLog = logs.find(log => log.date === today);
+  const el = document.getElementById("tip");
+  if (!el) return;
 
   let advice = "You're doing great today 💖";
 
   if (!todayLog) {
     advice = "Log your symptoms to get personalized tips 💡";
   } else {
-    const { symptoms, mood, flow } = todayLog;
+    const { symptoms = [], mood, flow } = todayLog;
 
-    if (symptoms && symptoms.includes("cramps")) {
-      advice = "Try warm water, rest, or light stretching for cramps 🤍";
-    } else if (symptoms && symptoms.includes("fatigue")) {
-      advice = "Your body needs rest. Take it easy today 🛌";
-    } else if (symptoms && symptoms.includes("headache")) {
-      advice = "Stay hydrated and avoid stress triggers 💧";
+    if (symptoms.includes("cramps")) {
+      advice = "Try warm compress or rest for cramps 🤍";
+    } else if (symptoms.includes("fatigue")) {
+      advice = "Your body needs rest 🛌";
+    } else if (symptoms.includes("headache")) {
+      advice = "Stay hydrated 💧";
     } else if (mood === "sad" || mood === "irritated") {
-      advice = "Take a break, listen to music, or talk to someone 💛";
+      advice = "Take a break 💛";
     } else if (flow === "heavy") {
-      advice = "Stay prepared and keep extra pads with you 🧻";
+      advice = "Stay prepared with pads 🧻";
     }
   }
 
-  document.getElementById("tip").innerText = advice;
+  el.innerText = advice;
 }
 
-showAdvice();
+// =======================
+// 🧰 KIT REMINDER
+// =======================
 
 function showKitReminder() {
-  let logs = JSON.parse(localStorage.getItem("logs")) || [];
+  const logs = getLogs();
 
   const periodLogs = logs
-    .filter(log => log.flow !== "none")
+    .filter(log => log.flow && log.flow !== "none")
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   if (!periodLogs.length) return;
 
   const lastDate = new Date(periodLogs[0].date);
-  const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
 
   const nextPeriod = new Date(lastDate);
   nextPeriod.setDate(lastDate.getDate() + cycleLength);
@@ -116,47 +150,115 @@ function showKitReminder() {
   const today = new Date();
   const diffDays = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays <= 2 && diffDays >= 0) {
-    document.getElementById("kitCard").style.display = "block";
+  const el = document.getElementById("kitCard");
+  if (el && diffDays <= 2 && diffDays >= 0) {
+    el.style.display = "block";
   }
 }
 
-showKitReminder();
+// =======================
+// 📢 ADAPTIVE MARQUEE
+// =======================
 
-const messages = [
-  "Drink water 💧",
-  "Your cycle is unique 💖",
-  "Rest when needed 🛌",
-  "Track daily for better insights 📊"
-];
+const textEl = document.getElementById("marqueeText");
 
-let i = 0;
-setInterval(() => {
-  document.getElementById("marqueeText").innerText = messages[i];
-  i = (i + 1) % messages.length;
-}, 5000);
+function getAdaptiveMessages() {
+  const logs = getLogs();
+  const todayLog = logs.find(log => log.date === getToday());
 
-const profileImg = document.getElementById("profileImg");
-const profileInput = document.getElementById("profileInput");
+  let set = new Set();
 
-// load saved image
-const savedImg = localStorage.getItem("profileImg");
-if (savedImg) {
-  profileImg.src = savedImg;
+  set.add("Drink water 💧");
+  set.add("Your cycle is unique 💖");
+
+  if (!todayLog) {
+    set.add("Track daily 📊");
+    return [...set];
+  }
+
+  const { symptoms = [], mood, flow } = todayLog;
+
+  if (flow === "heavy") {
+    set.add("Carry extra pads 🧻");
+  }
+
+  if (symptoms.includes("cramps")) {
+    set.add("Use warm compress 🔥");
+  }
+
+  if (symptoms.includes("fatigue")) {
+    set.add("Rest more today 🛌");
+  }
+
+  if (symptoms.includes("headache")) {
+    set.add("Stay hydrated 💧");
+  }
+
+  if (mood === "sad" || mood === "irritated") {
+    set.add("Take a break 💛");
+  }
+
+  set.add("Hygiene matters 🧼");
+
+  return [...set];
 }
 
-// click image → open file picker
-profileImg.onclick = () => profileInput.click();
+function startMarquee() {
+  if (!textEl) return;
 
-// save image
-profileInput.addEventListener("change", function () {
-  const file = this.files[0];
-  const reader = new FileReader();
+  let i = 0;
 
-  reader.onload = function () {
-    localStorage.setItem("profileImg", reader.result);
-    profileImg.src = reader.result;
-  };
+  function update() {
+    const messages = getAdaptiveMessages();
 
-  if (file) reader.readAsDataURL(file);
-});
+    textEl.innerText = messages[i];
+
+    textEl.style.animation = "none";
+    void textEl.offsetWidth;
+    textEl.style.animation = "scrollText 12s linear";
+
+    i = (i + 1) % messages.length;
+  }
+
+  update();
+  setInterval(update, 12000);
+}
+
+// =======================
+// 👤 PROFILE IMAGE
+// =======================
+
+function initProfileImage() {
+  const img = document.getElementById("profileImg");
+  const input = document.getElementById("profileInput");
+
+  if (!img || !input) return;
+
+  const saved = localStorage.getItem("profileImg");
+  if (saved) img.src = saved;
+
+  img.onclick = () => input.click();
+
+  input.addEventListener("change", function () {
+    const file = this.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      localStorage.setItem("profileImg", reader.result);
+      img.src = reader.result;
+    };
+
+    if (file) reader.readAsDataURL(file);
+  });
+}
+
+// =======================
+// 🚀 INIT
+// =======================
+
+calculateCycle();
+updatePadsUsed();
+showAdvice();
+showKitReminder();
+startMarquee();
+initProfileImage();
