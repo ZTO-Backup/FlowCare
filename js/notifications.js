@@ -34,13 +34,21 @@ function checkPeriodReminder() {
   const today = new Date();
   const diffDays = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays <= 2) {
+  if (diffDays === 2) {
     showNotification("FlowCare Reminder 💡", "Your period is likely in 2 days. Stay prepared!");
   }
 
   if (diffDays === 0) {
     showNotification("FlowCare Alert 🩸", "Your period may start today.");
   }
+
+  // EMERGENCY KIT REMINDER
+  if (diffDays === 2) {
+   showNotification(
+   "FlowCare Prep 💼",
+   "Your period is in 2 days. Prepare your kit (pads, meds, tissue)."
+   );
+   }
 }
 
 // RUN DAILY CHECK

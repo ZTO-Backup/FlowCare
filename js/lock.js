@@ -5,6 +5,7 @@ function unlockApp() {
   const error = document.getElementById("pinError");
 
   if (input === savedPIN) {
+    sessionStorage.setItem("unlocked", "true"); // ✅ key fix
     document.getElementById("lockScreen").style.display = "none";
   } else {
     error.innerText = "Incorrect PIN ❌";
@@ -13,7 +14,9 @@ function unlockApp() {
 
 // AUTO CHECK
 window.onload = function () {
-  if (!savedPIN) {
+  const isUnlocked = sessionStorage.getItem("unlocked");
+
+  if (!savedPIN || isUnlocked === "true") {
     document.getElementById("lockScreen").style.display = "none";
   }
 };
