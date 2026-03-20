@@ -6,6 +6,16 @@
   <title>Settings - FlowCare</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
+<div id="lockScreen" class="lock-screen">
+  <div class="lock-box">
+  <h3>🔒 Enter PIN</h3>
+  <input type="password" id="pinInput" placeholder="Enter PIN">
+  <button onclick="unlockApp()">Unlock</button>
+  <p id="pinError" style="color:red;"></p>
+   </div>
+ </div>
+
 <body>
 
 <div class="container">
@@ -56,5 +66,6 @@
 </div>
 
 <script src="js/settings.js"></script>
+<script src="js/lock.js"></script>
 </body>
 </html>
