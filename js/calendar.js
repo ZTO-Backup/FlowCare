@@ -14,7 +14,8 @@ function renderCalendar() {
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
   const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  monthYear.innerText = `${today.toLocaleString('default', { month: 'long' })} ${currentYear}`;
+ const date = new Date(currentYear, currentMonth);
+ monthYear.innerText = date.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   // empty spaces
   for (let i = 0; i < firstDay; i++) {
@@ -47,6 +48,24 @@ function selectDate(date) {
   document.getElementById("logBtn").onclick = () => {
     window.location.href = `log.html?date=${date}`;
   };
+}
+
+function prevMonth() {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  renderCalendar();
+}
+
+function nextMonth() {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  renderCalendar();
 }
 
 renderCalendar();

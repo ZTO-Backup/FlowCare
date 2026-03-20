@@ -12,6 +12,12 @@
 
   <h2 id="monthYear">March 2026</h2>
 
+  <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:10px;">
+    <button onclick="prevMonth()">◀</button>
+    <h3 id="monthYear"></h3>
+    <button onclick="nextMonth()">▶</button>
+  </div>
+
   <div class="calendar" id="calendar"></div>
 
   <div class="card">
@@ -22,11 +28,11 @@
 </div>
 
 <!-- NAV -->
-<div class="nav">
-  <a href="index.html">Home</a>
-  <a href="calendar.html">Calendar</a>
-  <a href="log.html">Log</a>
-  <a href="#">Settings</a>
+ <div class="nav">
+ <a href="index.html" class="active">Home</a>
+ <a href="calendar.html">Calendar</a>
+ <a href="log.html">Log</a>
+ <a href="#">Settings</a>
 </div>
 
 <script src="js/calendar.js"></script>
