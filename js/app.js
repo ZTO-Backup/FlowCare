@@ -122,3 +122,41 @@ function showKitReminder() {
 }
 
 showKitReminder();
+
+const messages = [
+  "Drink water 💧",
+  "Your cycle is unique 💖",
+  "Rest when needed 🛌",
+  "Track daily for better insights 📊"
+];
+
+let i = 0;
+setInterval(() => {
+  document.getElementById("marqueeText").innerText = messages[i];
+  i = (i + 1) % messages.length;
+}, 5000);
+
+const profileImg = document.getElementById("profileImg");
+const profileInput = document.getElementById("profileInput");
+
+// load saved image
+const savedImg = localStorage.getItem("profileImg");
+if (savedImg) {
+  profileImg.src = savedImg;
+}
+
+// click image → open file picker
+profileImg.onclick = () => profileInput.click();
+
+// save image
+profileInput.addEventListener("change", function () {
+  const file = this.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    localStorage.setItem("profileImg", reader.result);
+    profileImg.src = reader.result;
+  };
+
+  if (file) reader.readAsDataURL(file);
+});

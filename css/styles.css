@@ -175,3 +175,24 @@ small {
   background: linear-gradient(135deg, #ffe3ea, #fff);
   border-left: 4px solid #ff4d6d;
 }
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.marquee p {
+  display: inline-block;
+  animation: scrollText 12s linear infinite;
+  color: #ff4d6d;
+  font-size: 13px;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
+
 <body>
 
 <!-- 🔒 LOCK SCREEN -->
@@ -22,9 +23,24 @@
 <div class="container">
 
   <!-- HEADER -->
-  <div class="header-card">
+  <div class="header-card" style="display:flex; justify-content:space-between; align-items:center;">
+  
+  <div>
     <h2 id="greeting">Hi 👋</h2>
     <p class="sub">Your body, your rhythm</p>
+  </div>
+
+  <div>
+    <input type="file" id="profileInput" style="display:none;">
+    <img id="profileImg" src="https://via.placeholder.com/40" 
+         style="width:40px; height:40px; border-radius:50%; cursor:pointer;">
+  </div>
+
+</div>
+
+  <div class="marquee">
+    <p id="marqueeText">
+    Stay hydrated 💧 • Track your cycle 🩸 • Your body matters 💖</p>
   </div>
 
   <!-- MAIN STATUS -->
