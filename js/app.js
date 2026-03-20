@@ -65,3 +65,35 @@ function updatePadsUsed() {
 }
 
 calculateCycle();
+
+function showAdvice() {
+  let logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const todayLog = logs.find(log => log.date === today);
+
+  let advice = "You're doing great today 💖";
+
+  if (!todayLog) {
+    advice = "Log your symptoms to get personalized tips 💡";
+  } else {
+    const { symptoms, mood, flow } = todayLog;
+
+    if (symptoms && symptoms.includes("cramps")) {
+      advice = "Try warm water, rest, or light stretching for cramps 🤍";
+    } else if (symptoms && symptoms.includes("fatigue")) {
+      advice = "Your body needs rest. Take it easy today 🛌";
+    } else if (symptoms && symptoms.includes("headache")) {
+      advice = "Stay hydrated and avoid stress triggers 💧";
+    } else if (mood === "sad" || mood === "irritated") {
+      advice = "Take a break, listen to music, or talk to someone 💛";
+    } else if (flow === "heavy") {
+      advice = "Stay prepared and keep extra pads with you 🧻";
+    }
+  }
+
+  document.getElementById("tip").innerText = advice;
+}
+
+showAdvice();
