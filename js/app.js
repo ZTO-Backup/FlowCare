@@ -1,5 +1,6 @@
-// DEFAULT SETTINGS
-let cycleLength = 28;
+// LOAD SETTINGS
+let cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
+let username = localStorage.getItem("username") || "Queen";
 
 // Load logs
 let logs = JSON.parse(localStorage.getItem("logs")) || [];
@@ -14,7 +15,7 @@ function getLastPeriodDate() {
 }
 
 // Greeting
-document.getElementById("greeting").innerText = "Hi, Queen 👋";
+document.getElementById("greeting").innerText = `Hi, ${username} 👋`;
 
 function calculateCycle() {
   const lastPeriodDate = getLastPeriodDate();

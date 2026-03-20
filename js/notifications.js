@@ -44,5 +44,12 @@ function checkPeriodReminder() {
 }
 
 // RUN DAILY CHECK
-requestNotificationPermission();
-checkPeriodReminder();
+if (localStorage.getItem("notifications") === "true") {
+    requestNotificationPermission();
+    }
+    
+const notifEnabled = localStorage.getItem("notifications");
+
+if (notifEnabled === "true") {
+  checkPeriodReminder();
+  }
