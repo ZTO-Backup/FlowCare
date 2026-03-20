@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notebook - FlowCare</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Notebook 📓</h2>
+
+  <!-- FORM -->
+  <div class="card">
+    
+    <label>Date</label>
+    <input type="date" id="noteDate">
+
+    <label>Period Started?</label>
+    <select id="periodStart">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <label>Mood</label>
+    <select id="noteMood">
+      <option value="happy">Happy</option>
+      <option value="neutral">Neutral</option>
+      <option value="sad">Sad</option>
+      <option value="irritated">Irritated</option>
+    </select>
+
+    <label>Symptoms</label>
+    <input type="text" id="noteSymptoms" placeholder="e.g cramps, headache">
+
+    <label>Notes</label>
+    <textarea id="noteText" placeholder="Write anything..."></textarea>
+
+    <button onclick="saveNote()">Save Note</button>
+
+  </div>
+
+  <!-- LIST -->
+  <div id="notesList"></div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="log.html">Log</a>
+  <a href="insights.html">Insights</a>
+  <a href="settings.html">Settings</a>
+</div>
+
+<script src="js/notebook.js"></script>
+
+</body>
+</html>
