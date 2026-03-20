@@ -128,3 +128,9 @@ small {
   max-width: 300px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+
+.card a {
+  text-decoration: none;
+  color: #ff4d6d;
+  font-weight: 500;
+}
