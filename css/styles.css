@@ -227,3 +227,8 @@ small {
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+.splash.hide {
+    opacity: 0;
+      pointer-events: none;
+      }

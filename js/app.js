@@ -1,11 +1,9 @@
 // =======================
 // 🧰 HELPERS
 // =======================
-document.getElementById("splashScreen")?.remove();
-
-if (typeof protectPage === "function") {
-    protectPage();
-    }
+setTimeout(() => {
+    document.getElementById("splashScreen")?.remove();
+    }, 4000);
 
 function getLogs() {
   return JSON.parse(localStorage.getItem("logs")) || [];
@@ -270,19 +268,15 @@ startMarquee();
 initProfileImage();
 
 window.addEventListener("load", () => {
-  const splash = document.getElementById("splashScreen");
-
-  if (!splash) return;
-
   setTimeout(() => {
-    console.log("Splash trying to hide...");
-    splash.style.opacity = "0";
+    const splash = document.getElementById("splashScreen");
 
-    setTimeout(() => {
-      splash.remove(); // stronger than display none
-    }, 500);
+    if (splash) {
+      splash.classList.add("hide");
 
+      setTimeout(() => {
+        splash.remove();
+      }, 500);
+    }
   }, 2000);
 });
-
-console.log("App JS Loaded");
