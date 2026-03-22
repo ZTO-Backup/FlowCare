@@ -49,7 +49,7 @@ function calculateCycle() {
 
   const nextEl = document.getElementById("nextPeriod");
   const dayEl = document.getElementById("cycleDay");
-  const ovuEl = document.getElementById("ovulation");splash
+  const ovuEl = document.getElementById("ovulation");
 
 
   if (!nextEl || !dayEl || !ovuEl) return;
