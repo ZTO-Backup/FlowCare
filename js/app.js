@@ -1,10 +1,6 @@
 // =======================
 // 🧰 HELPERS
 // =======================
-setTimeout(() => {
-    document.getElementById("splashScreen")?.remove();
-    }, 4000);
-
 function getLogs() {
   return JSON.parse(localStorage.getItem("logs")) || [];
 }
