@@ -18,6 +18,16 @@ document.getElementById("cycleLength").addEventListener("input", (e) => {
   localStorage.setItem("cycleLength", e.target.value);
 });
 
+const ageInput = document.getElementById("ageInput");
+
+if (ageInput) {
+  ageInput.value = localStorage.getItem("age") || "";
+
+    ageInput.addEventListener("input", () => {
+        localStorage.setItem("age", ageInput.value);
+          });
+          }
+
 // TOGGLE NOTIFICATIONS
 document.getElementById("notifToggle").addEventListener("change", (e) => {
   localStorage.setItem("notifications", e.target.checked);
