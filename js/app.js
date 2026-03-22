@@ -49,7 +49,8 @@ function calculateCycle() {
 
   const nextEl = document.getElementById("nextPeriod");
   const dayEl = document.getElementById("cycleDay");
-  const ovuEl = document.getElementById("ovulation");
+  const ovuEl = document.getElementById("ovulation");splash
+
 
   if (!nextEl || !dayEl || !ovuEl) return;
 
@@ -263,15 +264,17 @@ showKitReminder();
 startMarquee();
 initProfileImage();
 
-function handleSplash() {
+window.addEventListener("load", () => {
   const splash = document.getElementById("splashScreen");
-  
+
   if (!splash) return;
 
   setTimeout(() => {
     splash.style.opacity = "0";
-    setTimeout(() => splash.style.display = "none", 500);
-  }, 2000); // 2 seconds
-}
 
-handleSplash();
+    setTimeout(() => {
+      splash.style.display = "none";
+    }, 500);
+
+  }, 2000);
+});
