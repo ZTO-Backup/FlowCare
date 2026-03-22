@@ -12,16 +12,26 @@
 
 <div class="container">
 
-  <h2 id="monthYear">March 2026</h2>
+  <!-- HEADER -->
+  <h2 id="monthYear"></h2>
 
   <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:10px;">
     <button onclick="prevMonth()">◀</button>
-    <h3 id="monthYear"></h3>
+    <span></span>
     <button onclick="nextMonth()">▶</button>
   </div>
 
+  <!-- CALENDAR -->
   <div class="calendar" id="calendar"></div>
 
+  <!-- ✅ LEGEND (ADDED HERE) -->
+  <div class="card">
+    <p>🟢 Safe Days</p>
+    <p>🔴 Fertile Days</p>
+    <p>🌼 Ovulation</p>
+  </div>
+
+  <!-- ACTION -->
   <div class="card">
     <p id="selectedDate">Select a day</p>
     <button id="logBtn">Log for this day</button>
@@ -30,19 +40,20 @@
 </div>
 
 <!-- NAV -->
- <div class="nav">
- <a href="index.html">Home</a>
- <a href="calendar.html" class="active">Calendar</a>
- <a href="log.html">Log</a>
- <a href="insights.html">Insights</a>
- <a href="settings.html">Settings</a>
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="calendar.html" class="active">Calendar</a>
+  <a href="log.html">Log</a>
+  <a href="insights.html">Insights</a>
+  <a href="settings.html">Settings</a>
 </div>
 
 <script src="js/auth.js"></script>
 <script>
   protectPage();
-  </script>
+</script>
 <script src="js/calendar.js"></script>
 <script src="js/lock.js"></script>
+
 </body>
 </html>

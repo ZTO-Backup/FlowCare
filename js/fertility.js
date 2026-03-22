@@ -2,6 +2,29 @@ function getLogs() {
   return JSON.parse(localStorage.getItem("logs")) || [];
 }
 
+function getAverageCycleLength() {
+  const logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const periodDates = logs
+    .filter(log => log.flow && log.flow !== "none")
+    .map(log => new Date(log.date))
+    .sort((a, b) => a - b);
+
+  if (periodDates.length < 2) return 28; // fallback
+
+  let cycles = [];
+
+  for (let i = 1; i < periodDates.length; i++) {
+    const diff = (periodDates[i] - periodDates[i - 1]) / (1000 * 60 * 60 * 24);
+    cycles.push(diff);
+  }
+
+  const avg =
+    cycles.reduce((a, b) => a + b, 0) / cycles.length;
+
+  return Math.round(avg);
+}
+
 function getLastPeriodDate() {
   const logs = getLogs();
 
@@ -13,7 +36,7 @@ function getLastPeriodDate() {
 }
 
 function fertilitySystem() {
-  const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
+  const cycleLength = getAverageCycleLength();
 
   const lastPeriod = getLastPeriodDate();
 
@@ -34,6 +57,10 @@ function fertilitySystem() {
   const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
   const cycleDay = (diffDays % cycleLength) + 1;
 
+  // 🤖 AI BASE MESSAGE
+  adviceEl.innerText =
+    "Based on your cycle history, this is your estimated fertility window.";
+
   dayEl.innerText = "Day " + cycleDay;
 
   // 🌼 OVULATION (approx)
@@ -46,21 +73,21 @@ function fertilitySystem() {
   if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
     statusEl.innerText = "🔴 High Fertility";
 
-    adviceEl.innerText =
+    adviceEl.innerText +=
       "High chance of pregnancy. Avoid unprotected sex if not planning.";
   }
 
   else if (cycleDay === ovulationDay) {
     statusEl.innerText = "🌼 Ovulation Day";
 
-    adviceEl.innerText =
+    adviceEl.innerText +=
       "Peak fertility today. Pregnancy chances are highest.";
   }
 
   else if (cycleDay < fertileStart || cycleDay > fertileEnd) {
     statusEl.innerText = "🟢 Low Fertility";
 
-    adviceEl.innerText =
+    adviceEl.innerText +=
       "Lower chance of pregnancy, but not 100% safe.";
   }
 

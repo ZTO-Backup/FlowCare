@@ -14,8 +14,8 @@ function renderCalendar() {
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
   const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
 
- const date = new Date(currentYear, currentMonth);
- monthYear.innerText = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const date = new Date(currentYear, currentMonth);
+  monthYear.innerText = date.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   // empty spaces
   for (let i = 0; i < firstDay; i++) {
@@ -28,23 +28,46 @@ function renderCalendar() {
     const log = logs.find(l => l.date === dateStr);
 
     let className = "day";
+    let style = "";
+    let extra = "";
 
+    // 🩸 PERIOD
     if (log && log.flow !== "none") {
       className += " period";
     }
 
-    calendarEl.innerHTML += `<div class="${className}" onclick="selectDate('${dateStr}')">${day}</div>`;
+    // 🌼 FERTILITY COLOR
+    const fertility = getFertilityColor(dateStr);
+
+    if (fertility === "fertile") {
+      style = "background:#ff4d6d;color:#fff;";
+    }
+
+    if (fertility === "ovulation") {
+      style = "background:#ffb84d;";
+      extra = "<br>🌼";
+    }
+
+    if (fertility === "safe") {
+      style = "background:#e6ffe6;";
+    }
+
+    calendarEl.innerHTML += `
+      <div class="${className}" 
+           style="${style}" 
+           onclick="selectDate('${dateStr}')">
+        ${day}${extra}
+      </div>`;
   }
 }
 
 function selectDate(date) {
   selectedDateText.innerText = "Selected: " + date;
-  
-  // highlight selected
+
   document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
-  
+
   event.target.classList.add("active");
-  
+
   document.getElementById("logBtn").onclick = () => {
     window.location.href = `log.html?date=${date}`;
   };
@@ -69,6 +92,10 @@ function nextMonth() {
 }
 
 renderCalendar();
+
+// =======================
+// 🌼 FERTILITY ENGINE
+// =======================
 
 function getFertilityColor(dateStr) {
   const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
