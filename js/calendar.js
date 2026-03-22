@@ -112,7 +112,25 @@ function getFertilityColor(dateStr) {
 
   if (!periodLogs.length) return "";
 
-  const lastDate = new Date(periodLogs[0].date);
+// 🧠 Get FIRST day of last period (not last logged day)
+const sorted = periodLogs
+  .map(log => new Date(log.date))
+  .sort((a, b) => a - b);
+
+// find last cycle start
+let lastStart = sorted[0];
+
+for (let i = sorted.length - 1; i > 0; i--) {
+  const diff = (sorted[i] - sorted[i - 1]) / (1000 * 60 * 60 * 24);
+
+  if (diff > 1) {
+    lastStart = sorted[i];
+    break;
+  }
+}
+
+const lastDate = lastStart;
+
   const current = new Date(dateStr);
 
   const diffDays = Math.floor((current - lastDate) / (1000 * 60 * 60 * 24));
