@@ -19,45 +19,46 @@ function renderCalendar() {
 
   // empty spaces
   for (let i = 0; i < firstDay; i++) {
-    calendarEl.innerHTML += `<div></div>`;
+    const emptyDiv = document.createElement("div");
+    calendarEl.appendChild(emptyDiv);
   }
 
+  // ✅ FIXED LOOP (DOM-based, not innerHTML)
   for (let day = 1; day <= totalDays; day++) {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
     const log = logs.find(l => l.date === dateStr);
 
-    let className = "day";
-    let style = "";
-    let extra = "";
+    let dayDiv = document.createElement("div");
+    dayDiv.className = "day";
+    dayDiv.innerText = day;
 
     // 🩸 PERIOD
     if (log && log.flow !== "none") {
-      className += " period";
+      dayDiv.classList.add("period");
     }
 
     // 🌼 FERTILITY COLOR
     const fertility = getFertilityColor(dateStr);
 
     if (fertility === "fertile") {
-      style = "background:#ff4d6d;color:#fff;";
+      dayDiv.style.background = "#ff4d6d";
+      dayDiv.style.color = "#fff";
     }
 
     if (fertility === "ovulation") {
-      style = "background:#ffb84d;";
-      extra = "<br>🌼";
+      dayDiv.style.background = "#ffb84d";
+      dayDiv.innerHTML += "<br>🌼";
     }
 
     if (fertility === "safe") {
-      style = "background:#e6ffe6;";
+      dayDiv.style.background = "#e6ffe6";
     }
 
-    calendarEl.innerHTML += `
-      <div class="${className}" 
-           style="${style}" 
-           onclick="selectDate('${dateStr}')">
-        ${day}${extra}
-      </div>`;
+    // CLICK
+    dayDiv.onclick = () => selectDate(dateStr);
+
+    calendarEl.appendChild(dayDiv);
   }
 }
 
