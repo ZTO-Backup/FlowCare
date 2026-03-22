@@ -262,3 +262,16 @@ showAdvice();
 showKitReminder();
 startMarquee();
 initProfileImage();
+
+function handleSplash() {
+  const splash = document.getElementById("splashScreen");
+  
+  if (!splash) return;
+
+  setTimeout(() => {
+    splash.style.opacity = "0";
+    setTimeout(() => splash.style.display = "none", 500);
+  }, 2000); // 2 seconds
+}
+
+handleSplash();
