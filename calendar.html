@@ -8,15 +8,6 @@
   <link rel="manifest" href="manifest.json">
 </head>
 
-<div id="lockScreen" class="lock-screen">
-  <div class="lock-box">
-  <h3>🔒 Enter PIN</h3>
-  <input type="password" id="pinInput" placeholder="Enter PIN">
-  <button onclick="unlockApp()">Unlock</button>
-  <p id="pinError" style="color:red;"></p>
-  </div>
- </div>
-
 <body>
 
 <div class="container">
@@ -47,6 +38,10 @@
  <a href="settings.html">Settings</a>
 </div>
 
+<script src="js/auth.js"></script>
+<script>
+  protectPage();
+  </script>
 <script src="js/calendar.js"></script>
 <script src="js/lock.js"></script>
 </body>
