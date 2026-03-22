@@ -270,6 +270,7 @@ window.addEventListener("load", () => {
   if (!splash) return;
 
   setTimeout(() => {
+    console.log("Splash trying to hide...");
     splash.style.opacity = "0";
 
     setTimeout(() => {
@@ -280,3 +281,4 @@ window.addEventListener("load", () => {
 });
 
 console.log("App JS Loaded");
+document.getElementById("splashScreen")?.remove();
