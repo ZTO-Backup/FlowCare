@@ -69,3 +69,29 @@ function nextMonth() {
 }
 
 renderCalendar();
+
+function getFertilityColor(dateStr) {
+  const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
+
+  const logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const periodLogs = logs
+    .filter(log => log.flow && log.flow !== "none")
+    .sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  if (!periodLogs.length) return "";
+
+  const lastDate = new Date(periodLogs[0].date);
+  const current = new Date(dateStr);
+
+  const diffDays = Math.floor((current - lastDate) / (1000 * 60 * 60 * 24));
+  const cycleDay = (diffDays % cycleLength) + 1;
+
+  const ovulationDay = cycleLength - 14;
+  const fertileStart = ovulationDay - 4;
+  const fertileEnd = ovulationDay + 1;
+
+  if (cycleDay === ovulationDay) return "ovulation";
+  if (cycleDay >= fertileStart && cycleDay <= fertileEnd) return "fertile";
+  return "safe";
+}
