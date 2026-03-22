@@ -14,21 +14,28 @@ const existing = logs.find(log => log.date === selectedDate);
 
 // PREFILL FORM
 if (existing) {
-  document.getElementById("flow").value = existing.flow;
-  document.getElementById("mood").value = existing.mood;
-  document.getElementById("pads").value = existing.pads;
+  document.getElementById("flow").value = existing.flow || "";
+  document.getElementById("mood").value = existing.mood || "";
+  document.getElementById("pads").value = existing.pads || "";
 
   document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.checked = existing.symptoms.includes(cb.value);
+    cb.checked = existing.symptoms?.includes(cb.value);
   });
 }
+
 document.getElementById("logTitle").innerText = "Log for " + selectedDate;
 
-// SAVE FUNCTION
+
+// =======================
+// 💾 SAVE FUNCTION (FIXED)
+// =======================
 function saveLog() {
-  const flow = document.getElementById("flow").value.toLowerCase();
+  let flow = document.getElementById("flow").value;
   const mood = document.getElementById("mood").value;
   const pads = document.getElementById("pads").value;
+
+  // 🔥 FORCE CLEAN VALUE
+  flow = flow ? flow.toLowerCase() : "none";
 
   const symptomElements = document.querySelectorAll('input[type="checkbox"]:checked');
   const symptoms = [];
@@ -46,7 +53,11 @@ function saveLog() {
   logs = logs.filter(log => log.date !== selectedDate);
   logs.push(entry);
 
+  // 🔥 SAVE CLEAN DATA
   localStorage.setItem("logs", JSON.stringify(logs));
 
   alert("Saved ✅");
+
+  // 🔥 FORCE REFRESH (VERY IMPORTANT)
+  window.location.href = "calendar.html";
 }
