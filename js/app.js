@@ -1,6 +1,11 @@
 // =======================
 // 🧰 HELPERS
 // =======================
+document.getElementById("splashScreen")?.remove();
+
+if (typeof protectPage === "function") {
+    protectPage();
+    }
 
 function getLogs() {
   return JSON.parse(localStorage.getItem("logs")) || [];
@@ -280,9 +285,4 @@ window.addEventListener("load", () => {
   }, 2000);
 });
 
-if (typeof protectPage === "function") {
-    protectPage();
-    }
-
 console.log("App JS Loaded");
-document.getElementById("splashScreen")?.remove();
