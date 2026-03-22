@@ -39,21 +39,24 @@ function renderCalendar() {
     }
 
     // 🌼 FERTILITY COLOR
-    const fertility = getFertilityColor(dateStr);
+  const fertility = getFertilityColor(dateStr);
 
-    if (fertility === "fertile") {
-      dayDiv.style.background = "#ff4d6d";
-      dayDiv.style.color = "#fff";
-    }
+// 🌼 FERTILITY COLOR (FIXED)
+if (fertility === "fertile") {
+  dayDiv.style.background = "#ff4d6d";
+  dayDiv.style.color = "#fff";
+}
 
-    if (fertility === "ovulation") {
-      dayDiv.style.background = "#ffb84d";
-      dayDiv.innerHTML += "<br>🌼";
-    }
+else if (fertility === "ovulation") {
+  dayDiv.style.background = "#ffb84d";
+  dayDiv.style.color = "#000";
+  dayDiv.innerHTML += "<br>🌼";
+}
 
-    if (fertility === "safe") {
-      dayDiv.style.background = "#e6ffe6";
-    }
+else if (fertility === "safe") {
+  dayDiv.style.background = "#4caf50";
+  dayDiv.style.color = "#fff";
+}
 
     // CLICK
     dayDiv.onclick = () => selectDate(dateStr);
