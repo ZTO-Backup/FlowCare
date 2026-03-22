@@ -232,3 +232,11 @@ small {
     opacity: 0;
       pointer-events: none;
       }
+
+.section h4 {
+    cursor: pointer;
+    }
+
+    .section .content {
+      margin-top: 10px;
+      }
