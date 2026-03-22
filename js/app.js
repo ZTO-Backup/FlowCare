@@ -273,8 +273,10 @@ window.addEventListener("load", () => {
     splash.style.opacity = "0";
 
     setTimeout(() => {
-      splash.style.display = "none";
+      splash.remove(); // stronger than display none
     }, 500);
 
   }, 2000);
 });
+
+console.log("App JS Loaded");

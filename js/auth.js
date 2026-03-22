@@ -18,7 +18,9 @@ function login() {
 function protectPage() {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-  if (isLoggedIn !== "true") {
+  const currentPage = window.location.pathname;
+
+  if (isLoggedIn !== "true" && !currentPage.includes("login.html")) {
     window.location.href = "login.html";
   }
 }
