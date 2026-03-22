@@ -280,5 +280,9 @@ window.addEventListener("load", () => {
   }, 2000);
 });
 
+if (typeof protectPage === "function") {
+    protectPage();
+    }
+
 console.log("App JS Loaded");
 document.getElementById("splashScreen")?.remove();
