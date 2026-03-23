@@ -8,6 +8,39 @@ let currentYear = today.getFullYear();
 
 let logs = JSON.parse(localStorage.getItem("logs")) || [];
 
+// =======================
+// 🧠 SMART AI CYCLE LENGTH
+// =======================
+function getSmartCycleLength() {
+  const logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const periodDates = logs
+    .filter(log => log.flow && log.flow !== "none")
+    .map(log => new Date(log.date))
+    .sort((a, b) => a - b);
+
+  if (periodDates.length < 2) return 28;
+
+  let cycles = [];
+
+  for (let i = 1; i < periodDates.length; i++) {
+    const diff = (periodDates[i] - periodDates[i - 1]) / (1000 * 60 * 60 * 24);
+
+    if (diff > 15 && diff < 45) {
+      cycles.push(diff);
+    }
+  }
+
+  if (!cycles.length) return 28;
+
+  const avg = cycles.reduce((a, b) => a + b, 0) / cycles.length;
+
+  return Math.round(avg);
+}
+
+// =======================
+// 📅 RENDER CALENDAR
+// =======================
 function renderCalendar() {
   calendarEl.innerHTML = "";
 
@@ -23,7 +56,6 @@ function renderCalendar() {
     calendarEl.appendChild(emptyDiv);
   }
 
-  // ✅ DAY LOOP
   for (let day = 1; day <= totalDays; day++) {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
@@ -57,14 +89,16 @@ function renderCalendar() {
       dayDiv.style.color = "#fff";
     }
 
-    // CLICK
-    dayDiv.onclick = () => selectDate(dateStr);
+    dayDiv.onclick = (e) => selectDate(dateStr, e);
 
     calendarEl.appendChild(dayDiv);
   }
 }
 
-function selectDate(date) {
+// =======================
+// 📌 SELECT DATE
+// =======================
+function selectDate(date, event) {
   selectedDateText.innerText = "Selected: " + date;
 
   document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
@@ -76,6 +110,9 @@ function selectDate(date) {
   };
 }
 
+// =======================
+// ⬅➡ NAVIGATION
+// =======================
 function prevMonth() {
   currentMonth--;
   if (currentMonth < 0) {
@@ -97,11 +134,10 @@ function nextMonth() {
 renderCalendar();
 
 // =======================
-// 🌼 FERTILITY ENGINE (FIXED)
+// 🌼 FERTILITY ENGINE (AI)
 // =======================
-
 function getFertilityColor(dateStr) {
-  const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
+  const cycleLength = getSmartCycleLength();
 
   const logs = JSON.parse(localStorage.getItem("logs")) || [];
 
@@ -110,7 +146,7 @@ function getFertilityColor(dateStr) {
     .map(log => new Date(log.date))
     .sort((a, b) => a - b);
 
-  if (!periodLogs.length) return "";
+  if (!periodLogs.length) return "safe";
 
   // 🧠 FIND TRUE LAST PERIOD START
   let lastStart = periodLogs[0];
@@ -126,12 +162,10 @@ function getFertilityColor(dateStr) {
 
   const current = new Date(dateStr);
 
-  // 🚫 PREVENT BACKWARD DATES BREAKING LOGIC
   if (current < lastStart) return "safe";
 
   const diffDays = Math.floor((current - lastStart) / (1000 * 60 * 60 * 24));
 
-  // 🚫 NEGATIVE PROTECTION
   if (diffDays < 0) return "safe";
 
   const cycleDay = (diffDays % cycleLength) + 1;
@@ -140,7 +174,6 @@ function getFertilityColor(dateStr) {
   const fertileStart = ovulationDay - 4;
   const fertileEnd = ovulationDay + 1;
 
-  // 🌼 STRICT ORDER
   if (cycleDay === ovulationDay) return "ovulation";
 
   if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
