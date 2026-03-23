@@ -226,18 +226,21 @@ function getFertilityColor(dateStr) {
   const fertileStart = ovulationDay - 4;
   const fertileEnd = ovulationDay + 1;
   
-  // 🔴 FERTILE ALWAYS SHOW (important)
-  if (cycleDay === ovulationDay) return "ovulation";
   
-  if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
-    return "fertile";
+// 🌼 Ovulation (1 day)
+if (cycleDay === ovulationDay) return "ovulation";
+
+// 🔴 Fertile window (tightened)
+if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
+  return "fertile";
   }
-  
-  // ⚠️ LOW CONFIDENCE → DON'T LIE
-  if (confidence === "low") return "unknown";
-  
-  return "safe";
-}
+
+  // 🟢 SAFE ZONES (REAL LIFE LOGIC)
+  if (cycleDay <= 5) return "safe";            // early safe
+  if (cycleDay >= ovulationDay + 3) return "safe"; // post ovulation safe
+
+  // 🤷 UNKNOWN (for middle uncertain days)
+  return "unknown";
 
 function showCycleWarning() {
   const ai = getAIInsights();
