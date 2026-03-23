@@ -149,16 +149,21 @@ function renderCalendar() {
 // ðŸ“Œ SELECT DATE
 // =======================
 function selectDate(date, event) {
-  selectedDateText.innerText = "Selected: " + date;
-  
-  document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
-  
-  event.target.classList.add("active");
-  
-  document.getElementById("logBtn").onclick = () => {
-    window.location.href = `log.html?date=${date}`;
+selectedDateText.innerText = "Selected: " + date;
+
+document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
+event.target.classList.add("active");
+
+const info = getFertilityDetails(date);
+
+document.getElementById("dayInfo").innerText =
+`${info.message} (Risk Level: ${info.level})`;
+
+document.getElementById("logBtn").onclick = () => {
+window.location.href = `log.html?date=${date}`;
   };
-}
+    }
+
 
 // =======================
 // â¬…âž¡ NAVIGATION
@@ -243,23 +248,108 @@ if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
   return "unknown";
 }
 
+function getFertilityDetails(dateStr) {
+  const ai = getAIInsights();
+  const cycleLength = ai.cycleLength;
+
+  const logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const periodLogs = logs
+    .filter(log => log.flow && log.flow !== "none")
+    .map(log => new Date(log.date))
+    .sort((a, b) => a - b);
+
+  if (!periodLogs.length) {
+    return {
+      status: "unknown",
+      message: "Not enough data",
+      level: "LOW"
+    };
+  }
+
+  let lastStart = periodLogs[0];
+
+  for (let i = periodLogs.length - 1; i > 0; i--) {
+    const diff = (periodLogs[i] - periodLogs[i - 1]) / (1000 * 60 * 60 * 24);
+    if (diff > 1) {
+      lastStart = periodLogs[i];
+      break;
+    }
+  }
+
+  const current = new Date(dateStr);
+  const diffDays = Math.floor((current - lastStart) / (1000 * 60 * 60 * 24));
+
+  const cycleDay = (diffDays % cycleLength) + 1;
+
+  const ovulationDay = cycleLength - 14;
+  const fertileStart = ovulationDay - 4;
+  const fertileEnd = ovulationDay + 1;
+
+  // 🌼 Ovulation
+  if (cycleDay === ovulationDay) {
+    return {
+      status: "ovulation",
+      message: "Ovulation day — highest chance of pregnancy",
+      level: "VERY HIGH"
+    };
+  }
+
+  // 🔴 Fertile
+  if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
+    return {
+      status: "fertile",
+      message: "Fertile window — high chance of pregnancy",
+      level: "HIGH"
+    };
+  }
+
+  // 🟢 Early Safe
+  if (cycleDay <= 5) {
+    return {
+      status: "safe",
+      message: "Early cycle — relatively safe",
+      level: "MEDIUM"
+    };
+  }
+
+  // 🟢 Late Safe
+  if (cycleDay >= ovulationDay + 3) {
+    return {
+      status: "safe",
+      message: "Post ovulation — safer period",
+      level: "HIGH"
+    };
+  }
+
+  return {
+    status: "unknown",
+    message: "Uncertain phase — be cautious",
+    level: "LOW"
+  };
+}
+
 function showCycleWarning() {
   const ai = getAIInsights();
 
   const warningEl = document.getElementById("cycleWarning");
+  const confidenceEl = document.getElementById("confidenceText");
 
   if (!warningEl) return;
 
   if (ai.confidence === "low") {
-    warningEl.innerText = "⚠️ Not enough data yet. Keep logging for better predictions.";
+    warningEl.innerText = "⚠️ Not enough data yet.";
+    confidenceEl.innerText = "Confidence: Low";
   }
 
   else if (ai.irregular) {
-    warningEl.innerText = "⚠️ Your cycle seems irregular. Predictions may vary.";
+    warningEl.innerText = "⚠️ Cycle irregular.";
+    confidenceEl.innerText = "Confidence: Medium";
   }
 
   else {
-    warningEl.innerText = "✅ Your cycle looks stable. Predictions are more reliable.";
+    warningEl.innerText = "✅ Cycle stable.";
+    confidenceEl.innerText = "Confidence: High";
   }
 }
 
