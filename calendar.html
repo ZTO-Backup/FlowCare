@@ -10,40 +10,40 @@
 
 <body>
 
-  <div class="card">
-      <p id="cycleWarning"></p>
-      </div>
-
 <div class="container">
-
-  <!-- HEADER -->
-  <h2 id="monthYear"></h2>
-
-  <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:10px;">
-    <button onclick="prevMonth()">◀</button>
-    <span></span>
-    <button onclick="nextMonth()">▶</button>
+  
+  <!-- 🧠 AI STATUS -->
+  <div class="card premium-card warning-card">
+    <p id="cycleWarning"></p>
   </div>
-
-  <!-- CALENDAR -->
-  <div class="calendar" id="calendar"></div>
-
-  <!-- ✅ LEGEND (ADDED HERE) -->
-  <div class="card">
-    <p>🟢 Safe Days</p>
-    <p>🔴 Fertile Days</p>
-    <p>🌼 Ovulation</p>
+  
+  <!-- 📅 HEADER -->
+  <div class="header-row">
+    <button class="nav-btn" onclick="prevMonth()">◀</button>
+    <h2 id="monthYear"></h2>
+    <button class="nav-btn" onclick="nextMonth()">▶</button>
   </div>
-
-  <!-- ACTION -->
-  <div class="card">
+  
+  <!-- 📆 CALENDAR -->
+  <div class="calendar premium-calendar" id="calendar"></div>
+  
+  <!-- 📊 LEGEND -->
+  <div class="card premium-card legend">
+    <div><span class="dot safe"></span> Safe</div>
+    <div><span class="dot fertile"></span> Fertile</div>
+    <div><span class="dot ovulation"></span> Ovulation</div>
+    <div><span class="dot unknown"></span> Not Sure</div>
+  </div>
+  
+  <!-- 📌 ACTION -->
+  <div class="card premium-card">
     <p id="selectedDate">Select a day</p>
     <button id="logBtn">Log for this day</button>
   </div>
-
+  
 </div>
 
-<!-- NAV -->
+<!-- 🔻 NAV -->
 <div class="nav">
   <a href="index.html">Home</a>
   <a href="calendar.html" class="active">Calendar</a>
