@@ -373,5 +373,24 @@ color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 15px;
 }
+
+.header-row h2 {
+  flex: 1;
+  text-align: center;
+  }
+
+.nav-btn {
+ width: auto !important;
+ display: inline-block;
+   }
+
+.calendar {
+overflow: hidden;
+    }
+
+.day {
+    min-width: 0;
+    }

@@ -241,6 +241,7 @@ if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
 
   // 🤷 UNKNOWN (for middle uncertain days)
   return "unknown";
+}
 
 function showCycleWarning() {
   const ai = getAIInsights();
