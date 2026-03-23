@@ -76,13 +76,13 @@ select, input {
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+  gap: 10px;
   width: 100%;
  }
 
 .day {
  background: #fff;
- aspect-ratio: 1 / 1;
+ height: 48px;
  display: flex;
  align-items: center;
  justify-content: center;
@@ -90,6 +90,8 @@ select, input {
  font-size: 14px;
  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
+
 
 .day:hover {
   background: #ffe3ea;
@@ -272,7 +274,6 @@ small {
 
 /* NAV BUTTONS */
 .nav-btn {
-  background: white;
   border: none;
   padding: 10px 14px;
   border-radius: 12px;
