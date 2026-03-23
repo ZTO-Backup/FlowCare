@@ -23,7 +23,7 @@ function renderCalendar() {
     calendarEl.appendChild(emptyDiv);
   }
 
-  // ✅ FIXED LOOP (DOM-based, not innerHTML)
+  // ✅ DAY LOOP
   for (let day = 1; day <= totalDays; day++) {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
@@ -39,24 +39,23 @@ function renderCalendar() {
     }
 
     // 🌼 FERTILITY COLOR
-  const fertility = getFertilityColor(dateStr);
+    const fertility = getFertilityColor(dateStr);
 
-// 🌼 FERTILITY COLOR (FIXED)
-if (fertility === "fertile") {
-  dayDiv.style.background = "#ff4d6d";
-  dayDiv.style.color = "#fff";
-}
+    if (fertility === "fertile") {
+      dayDiv.style.background = "#ff4d6d";
+      dayDiv.style.color = "#fff";
+    }
 
-else if (fertility === "ovulation") {
-  dayDiv.style.background = "#ffb84d";
-  dayDiv.style.color = "#000";
-  dayDiv.innerHTML += "<br>🌼";
-}
+    else if (fertility === "ovulation") {
+      dayDiv.style.background = "#ffb84d";
+      dayDiv.style.color = "#000";
+      dayDiv.innerHTML += "<br>🌼";
+    }
 
-else if (fertility === "safe") {
-  dayDiv.style.background = "#4caf50";
-  dayDiv.style.color = "#fff";
-}
+    else if (fertility === "safe") {
+      dayDiv.style.background = "#4caf50";
+      dayDiv.style.color = "#fff";
+    }
 
     // CLICK
     dayDiv.onclick = () => selectDate(dateStr);
@@ -98,7 +97,7 @@ function nextMonth() {
 renderCalendar();
 
 // =======================
-// 🌼 FERTILITY ENGINE
+// 🌼 FERTILITY ENGINE (FIXED)
 // =======================
 
 function getFertilityColor(dateStr) {
@@ -108,39 +107,45 @@ function getFertilityColor(dateStr) {
 
   const periodLogs = logs
     .filter(log => log.flow && log.flow !== "none")
-    .sort((a,b) => new Date(b.date) - new Date(a.date));
+    .map(log => new Date(log.date))
+    .sort((a, b) => a - b);
 
   if (!periodLogs.length) return "";
 
-// 🧠 Get FIRST day of last period (not last logged day)
-const sorted = periodLogs
-  .map(log => new Date(log.date))
-  .sort((a, b) => a - b);
+  // 🧠 FIND TRUE LAST PERIOD START
+  let lastStart = periodLogs[0];
 
-// find last cycle start
-let lastStart = sorted[0];
+  for (let i = periodLogs.length - 1; i > 0; i--) {
+    const diff = (periodLogs[i] - periodLogs[i - 1]) / (1000 * 60 * 60 * 24);
 
-for (let i = sorted.length - 1; i > 0; i--) {
-  const diff = (sorted[i] - sorted[i - 1]) / (1000 * 60 * 60 * 24);
-
-  if (diff > 1) {
-    lastStart = sorted[i];
-    break;
+    if (diff > 1) {
+      lastStart = periodLogs[i];
+      break;
+    }
   }
-}
-
-const lastDate = lastStart;
 
   const current = new Date(dateStr);
 
-  const diffDays = Math.floor((current - lastDate) / (1000 * 60 * 60 * 24));
+  // 🚫 PREVENT BACKWARD DATES BREAKING LOGIC
+  if (current < lastStart) return "safe";
+
+  const diffDays = Math.floor((current - lastStart) / (1000 * 60 * 60 * 24));
+
+  // 🚫 NEGATIVE PROTECTION
+  if (diffDays < 0) return "safe";
+
   const cycleDay = (diffDays % cycleLength) + 1;
 
   const ovulationDay = cycleLength - 14;
   const fertileStart = ovulationDay - 4;
   const fertileEnd = ovulationDay + 1;
 
+  // 🌼 STRICT ORDER
   if (cycleDay === ovulationDay) return "ovulation";
-  if (cycleDay >= fertileStart && cycleDay <= fertileEnd) return "fertile";
+
+  if (cycleDay >= fertileStart && cycleDay <= fertileEnd) {
+    return "fertile";
+  }
+
   return "safe";
 }
