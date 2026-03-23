@@ -77,15 +77,18 @@ select, input {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
-}
+  width: 100%;
+ }
 
 .day {
-  background: #fff;
-  padding: 12px;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+ background: #fff;
+ aspect-ratio: 1 / 1;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 12px;
+ font-size: 14px;
+ box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .day:hover {
@@ -333,4 +336,18 @@ button {
 
 button:hover {
   transform: scale(1.02);
+}
+
+body {
+ overflow-x: hidden;
+   }
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
+  }
+
+.ovum {
+  font-size: 12px;
+  color: #000;
 }

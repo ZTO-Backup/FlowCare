@@ -131,7 +131,7 @@ function renderCalendar() {
     else if (fertility === "ovulation") {
       dayDiv.style.background = "#ffb84d";
       dayDiv.style.color = "#000";
-      dayDiv.innerHTML += "<br>ðŸŒ¼";
+  dayDiv.innerHTML += "<br><span class='ovum'>*</span>";
     }
     
     else if (fertility === "safe") {
