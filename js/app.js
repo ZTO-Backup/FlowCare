@@ -252,6 +252,17 @@ function initProfileImage() {
   });
 }
 
+function sendPush(title, body) {
+  if (!("Notification" in window)) return;
+
+  if (Notification.permission === "granted") {
+    new Notification(title, {
+      body: body,
+      icon: "icon-192.png"
+    });
+  }
+}
+
 // =======================
 // 🚀 INIT
 // =======================

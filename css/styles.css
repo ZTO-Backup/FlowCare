@@ -394,3 +394,71 @@ overflow: hidden;
 .day {
     min-width: 0;
     }
+
+.marquee-box {
+  padding: 6px 10px;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 15s linear infinite;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff4d6d;
+  margin: 0;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.warning-card,
+.marquee-box {
+  padding: 6px 10px !important;
+  }
+
+.warning-card p {
+  margin: 4px 0;
+    font-size: 14px;
+    }
+
+.card {
+    margin-bottom: 8px;  /* was 15px */
+    }
+
+.cycle-card {
+  padding: 10px 14px; /* reduced height */
+  border-left: 5px solid #ff4d6d;
+  background: linear-gradient(135deg, #fff0f3, #ffffff);
+}
+
+/* TEXT STYLE */
+#cycleDay {
+  margin: 2px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+#nextPeriod {
+  margin: 2px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ff4d6d;
+}
+
+#nextPeriod {
+  animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
