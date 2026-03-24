@@ -1,3 +1,5 @@
+let selectedDate = null;
+
 // =======================
 // 🧠 AI INSIGHTS
 // =======================
@@ -106,12 +108,14 @@ function renderCalendar() {
 // SELECT DATE
 // =======================
 function selectDate(date, event) {
+  selectedDate = date;
+
   if (selectedDateText) {
     selectedDateText.innerText = "Selected: " + date;
   }
 
   document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
-  event.target.classList.add("active");
+  event.currentTarget.classList.add("active");
 
   const info = getFertilityDetails(date);
 
@@ -120,14 +124,6 @@ function selectDate(date, event) {
     infoEl.innerText = `${info.message} (Risk: ${info.level})`;
   }
 
-  const btn = document.getElementById("logBtn");
-  if (btn) {
-    btn.onclick = () => {
-      window.location.href = `log.html?date=${date}`;
-    };
-  }
-
-  // 🔥 UPDATE UI ON CLICK
   showCycleWarning();
   showAdvancedInsights();
   showCycleInfo();
@@ -246,10 +242,10 @@ function getPetName() {
 }
 
 function showAdvancedInsights() {
-  const textEl = document.getElementById("marqueeText");
-  const cloneEl = document.getElementById("marqueeClone");
+  
+const el = document.getElementById("marqueeAI");
 
-  if (!textEl || !cloneEl) return;
+  if (!el) return;
 
   const data = getAdvancedInsights();
   const pet = getPetName();
@@ -260,14 +256,18 @@ function showAdvancedInsights() {
     `📊 Chance today: ${data.chance}`
   ];
 
-  // 🔀 shuffle for natural feel
+  // shuffle (nice touch)
   messages = messages.sort(() => Math.random() - 0.5);
 
   const fullText = messages.join("   •   ");
 
-  // 🔁 duplicate content for seamless loop
-  textEl.innerText = fullText;
-  cloneEl.innerText = fullText;
+  // ✅ USE YOUR CSS SYSTEM (.marquee-track)
+  el.innerHTML = `
+    <div class="marquee-track">
+      <span>${fullText}</span>
+      <span>${fullText}</span>
+    </div>
+  `;
 }
 
 // =======================
@@ -386,3 +386,16 @@ setTimeout(() => {
   requestNotificationPermission();
   checkSmartAlerts();
 }, 1500);
+
+const btn = document.getElementById("logBtn");
+
+if (btn) {
+  btn.addEventListener("click", () => {
+    if (!selectedDate) {
+      alert("Please select a day first");
+      return;
+    }
+
+    window.location.href = `log.html?date=${selectedDate}`;
+  });
+}
