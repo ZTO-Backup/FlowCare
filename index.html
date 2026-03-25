@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,46 +23,73 @@
 
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="header-card" style="display:flex; justify-content:space-between; align-items:center;">
-  
-  <div>
-    <h2 id="greeting">Hi 👋</h2>
-<p class="sub" id="heroSub">Your body, your rhythm</p>
+ <!-- 🔥 PREMIUM HEADER (SAFE VERSION) -->
+<div class="header">
+
+  <div class="header-top">
+
+    <div class="greeting-wrap">
+      <!-- ✅ KEEP ORIGINAL ID -->
+      <h2 id="greeting" class="text-xl">
+        Hi, Grace <span id="wave">👋</span>
+      </h2>
+
+      <p id="heroSub" class="sub text-sm">
+        Your body, your rhythm 💖
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <!-- ✅ KEEP YOUR INPUT -->
+      <input type="file" id="profileInput" style="display:none;">
+
+      <img id="profileImg"
+        src="https://via.placeholder.com/40">
+
+      <!-- ⋮ MENU -->
+      <div class="menu-wrap">
+        <span id="menuBtn">⋮</span>
+
+        <div id="menuDropdown" class="menu-dropdown">
+          <a href="settings.html">⚙️ Settings</a>
+          <a href="#">🔒 Privacy Policy</a>
+          <a href="#">📄 Disclaimer</a>
+          <a href="#">📘 User Guide</a>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
-  <div>
-    <input type="file" id="profileInput" style="display:none;">
-    <img id="profileImg" src="https://via.placeholder.com/40" 
-         style="width:40px; height:40px; border-radius:50%; cursor:pointer;">
-  </div>
-
-</div>
-
+  <!-- ✅ KEEP MARQUEE (JUST MOVED INSIDE HEADER) -->
   <div class="marquee">
-  <div class="marquee-track">
-    <span id="marqueeText"></span>
-    <span id="marqueeClone"></span>
+    <div class="marquee-track">
+      <span id="marqueeText"></span>
+      <span id="marqueeClone"></span>
+    </div>
   </div>
+
 </div>
 
   <!-- MAIN STATUS -->
   <div class="status-grid">
 
     <div class="status-card period">
-      <p>🩸 Next Period</p>
-      <h3 id="nextPeriod">--</h3>
-    </div>
+  <p class="text-sm">🩸 Next Period</p>
+  <h3 id="nextPeriod" class="text-accent">--</h3>
+</div>
 
-    <div class="status-card cycle">
-      <p>📊 Cycle Day</p>
-      <h3 id="cycleDay">--</h3>
-    </div>
+<div class="status-card cycle">
+  <p class="text-sm">📊 Cycle Day</p>
+  <h3 id="cycleDay" class="text-accent">--</h3>
+</div>
 
-    <div class="status-card">
-      <p>🌼 Ovulation</p>
-      <h3 id="ovulation">--</h3>
-    </div>
+<div class="status-card ovulation">
+  <p class="text-sm">🌼 Ovulation</p>
+  <h3 id="ovulation" class="text-accent">--</h3>
+</div>
 
   </div>
 
@@ -74,9 +102,9 @@
 
   <!-- ADVICE -->
   <div class="card highlight">
-    <p>💡 Daily AI Care</p>
-<small id="tip">Stay hydrated</small>
-  </div>
+  <p class="text-lg">💡 Daily AI Care</p>
+  <small id="tip" class="text-sm">Stay hydrated</small>
+</div>
 
   <!-- EMERGENCY KIT -->
   <div class="card" id="kitCard" style="display:none;">
@@ -90,25 +118,25 @@
   </div>
 
   <!-- LEARN -->
-  <div class="card">
-    <a href="education.html">📘 Learn about your health</a>
-  </div>
+  <div class="card link-card">
+  <a href="education.html" class="link-text">📘 Learn about your health</a>
+</div>
 
-  <div class="card">
-      <a href="cycle-guide.html">🧠 Understand your cycle</a>
-      </div>
+<div class="card link-card">
+  <a href="cycle-guide.html" class="link-text">🧠 Understand your cycle</a>
+</div>
 
-      <div class="card">
-          <a href="fertility.html">🌼 Fertility Insights</a>
-          </div>
+<div class="card link-card">
+  <a href="fertility.html" class="link-text">🌼 Fertility Insights</a>
+</div>
 
-      <div class="card">
-          <a href="menopause.html">🌸 Menopause Care</a>
-          </div>
+<div class="card link-card">
+  <a href="menopause.html" class="link-text">🌸 Menopause Care</a>
+</div>
 
-  <div class="card">
-      <a href="notebook.html">📓 Open Notebook</a>
-      </div>
+<div class="card link-card">
+  <a href="notebook.html" class="link-text">📓 Open Notebook</a>
+</div>
 
 </div>
 
@@ -118,7 +146,7 @@
   <a href="calendar.html">Calendar</a>
   <a href="log.html">Log</a>
   <a href="insights.html">Insights</a>
-  <a href="settings.html">Settings</a>
+  <a href="> index.html.html">Settings</a>
 </div>
 
 <!-- ⚙️ SCRIPTS -->

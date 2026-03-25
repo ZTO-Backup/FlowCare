@@ -95,6 +95,44 @@ function updatePadsUsed() {
   if (el) el.innerText = "Pads used: " + total;
 }
 
+// GREETING LOGIC
+function setGreeting() {
+  const el = document.getElementById("greetingText");
+  const hour = new Date().getHours();
+
+  let text = "Hello";
+
+  if (hour < 12) text = "Good morning";
+  else if (hour < 17) text = "Good afternoon";
+  else if (hour < 21) text = "Good evening";
+  else text = "Good night";
+
+  const username = localStorage.getItem("username") || "Queen";
+
+  el.innerHTML = `${text}, ${username} <span id="wave">👋</span>`;
+}
+
+// WAVE 👋 LOGIC
+setTimeout(() => {
+  const wave = document.getElementById("wave");
+  if (wave) wave.style.display = "none";
+}, 4000);
+
+const menuBtn = document.getElementById("menuBtn");
+const menu = document.getElementById("menuDropdown");
+
+if (menuBtn && menu) {
+  menuBtn.addEventListener("click", () => {
+    menu.classList.toggle("show");
+  });
+  
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && e.target !== menuBtn) {
+      menu.classList.remove("show");
+    }
+  });
+}
+
 // =======================
 // 💡 ADVICE ENGINE
 // =======================
@@ -284,6 +322,7 @@ showKitReminder();
 initProfileImage();
 setHeroMessage();
 startMarquee();
+setGreeting();
 
 window.addEventListener("load", () => {
   setTimeout(() => {
