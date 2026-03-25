@@ -1,15 +1,11 @@
+
 /* GENERAL */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   margin: 0;
-  background: #fff1f4;
+  background: linear-gradient(180deg, #fff7f9 0%, #ffffff 100%);
   color: #333;
-}
-
-/* CONTAINER */
-.container {
-  padding: 20px;
-  padding-bottom: 90px;
+  overflow-x: hidden;
 }
 
 /* HEADINGS */
@@ -21,24 +17,122 @@ h2 {
 /* CARD */
 .card {
   background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
   padding: 16px;
-  margin-bottom: 15px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 8px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  animation: cardIn 0.4s ease;
 }
 
 /* BUTTON */
 button {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #ff4d6d, #ff758f);
+  padding: 15px;
+  background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
   border: none;
   color: white;
-  border-radius: 12px;
+  border-radius: 16px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.2)
+  );
+  transform: skewX(-20deg);
+}
+
+button:hover::before {
+  animation: shine 1s forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 130%;
+  }
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.2);
+}
+
+button {
+  animation: pulseBtn 4s ease-in-out infinite;
+}
+
+@keyframes pulseBtn {
+  0% { box-shadow: 0 8px 20px rgba(255, 77, 109, 0.25); }
+  50% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.35); }
+  100% { box-shadow: 0 8px 20px rgba(255, 77, 109, 0.25); }
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+/* 🔥 PAGE FADE IN */
+.container {
+  padding: 20px;
+  padding-bottom: 90px;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 👆 TOUCH FEEDBACK */
+.card:active {
+  transform: scale(0.98);
+}
+
+.status-card:active {
+  transform: scale(0.96);
+}
+
+
 
 /* INPUTS */
 select, input {
@@ -65,30 +159,48 @@ select, input {
   text-decoration: none;
   color: #999;
   font-size: 14px;
+  transition: all 0.2s ease;
 }
 
-.nav a.active {
-  color: #ff4d6d;
-  font-weight: bold;
+.nav a:active {
+  transform: scale(0.9);
 }
+
+.status-card h3 {
+  animation: fadeNumber 0.5s ease;
+}
+
+@keyframes fadeNumber {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 /* CALENDAR */
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 8px;
   width: 100%;
- }
+}
 
 .day {
- background: #fff;
- height: 48px;
- display: flex;
- align-items: center;
- justify-content: center;
- border-radius: 12px;
- font-size: 14px;
- box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background: #ffffff;
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* ✅ keeps it square */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
 }
 
 
@@ -146,7 +258,7 @@ small {
 }
 
 .sub {
-  color: #777;
+  color: #888;
   font-size: 14px;
 }
 
@@ -155,51 +267,108 @@ small {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .status-card {
-  background: white;
-  padding: 12px;
-  border-radius: 14px;
+  background: #ffffff;
+  border-left: 4px solid #e85a70;
+  padding: 10px 8px; 
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 🩸 NEXT PERIOD */
+.status-card.period {
+  background: linear-gradient(135deg, #ffe5ec, #fff);
+  border-left: 4px solid #ff4d6d;
+}
+
+/* 📊 CYCLE DAY */
+.status-card.cycle {
+  background: linear-gradient(135deg, #f8f9ff, #fff);
+  border-left: 4px solid #6c63ff;
+}
+
+/* 🌼 OVULATION */
+.status-card.ovulation {
+  background: linear-gradient(135deg, #fff6e5, #fff);
+  border-left: 4px solid #ff4d6d;
+}
+
+.status-card h3 {
+  margin: 4px 0 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.status-card p::first-letter {
+  font-size: 16px;
+  margin: 0;
 }
 
 .status-card p {
   font-size: 12px;
-  color: #888;
-}
-
-.status-card h3 {
-  margin: 5px 0 0;
+  color: #999;
+  letter-spacing: 0.3px;
 }
 
 /* HIGHLIGHT CARD */
 .highlight {
-  background: linear-gradient(135deg, #ffe3ea, #fff);
+  background: linear-gradient(135deg, #fff0f3, #ffffff);
   border-left: 4px solid #ff4d6d;
+  position: relative;
 }
 
+.highlight::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(255, 77, 109, 0.15), transparent);
+}
+
+/* 🔥 PREMIUM INSIGHT BAR */
 .marquee {
   overflow: hidden;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 77, 109, 0.08);
+  padding: 10px 14px;
+  box-shadow: 0 6px 18px rgba(255, 77, 109, 0.08);
+}
+
+/* TRACK (MOVING PART) */
+.marquee-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scrollLoop 22s linear infinite;
+}
+
+/* TEXT */
+.marquee-track span {
   white-space: nowrap;
-  background: #fff;
-  padding: 6px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.marquee p {
-  display: inline-block;
-  animation: scrollText 12s linear;
+  font-size: 14px;
+  font-weight: 500;
   color: #ff4d6d;
-  font-size: 18px;
 }
 
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* SMOOTH LOOP */
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .splash {
@@ -250,21 +419,14 @@ small {
 
 .premium-card {
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(255, 77, 109, 0.08);
   padding: 18px;
-  transition: transform 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .premium-card:hover {
-  transform: translateY(-2px);
-}
-
-/* HEADER */
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(255, 77, 109, 0.12);
 }
 
 .header-row h2 {
@@ -272,14 +434,8 @@ small {
   font-weight: 600;
 }
 
-/* NAV BUTTONS */
-.nav-btn {
-  border: none;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  cursor: pointer;
+.premium-calendar {
+  width: 100%;
 }
 
 /* CALENDAR */
@@ -330,24 +486,6 @@ small {
   text-align: center;
 }
 
-/* BUTTON UPGRADE */
-button {
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  transform: scale(1.02);
-}
-
-body {
- overflow-x: hidden;
-   }
-
-.container {
-  max-width: 100%;
-  overflow-x: hidden;
-  }
-
 .ovum {
   font-size: 12px;
   color: #000;
@@ -382,15 +520,6 @@ color: #fff;
   text-align: center;
   }
 
-.nav-btn {
- width: auto !important;
- display: inline-block;
-   }
-
-.calendar {
-overflow: hidden;
-    }
-
 .day {
     min-width: 0;
     }
@@ -403,10 +532,6 @@ overflow: hidden;
 .warning-card p {
   margin: 4px 0;
     font-size: 14px;
-    }
-
-.card {
-    margin-bottom: 8px;  /* was 15px */
     }
 
 .cycle-card {
@@ -439,33 +564,15 @@ overflow: hidden;
   100% { opacity: 1; }
 }
 
-.marquee-ai {
-  overflow: hidden;
-  padding: 8px 12px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
+#profileImg {
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.15);
 }
 
-.marquee-ai .marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 40px;
-  animation: scrollLoop 25s linear infinite;
+#profileImg:active {
+  transform: scale(0.92);
 }
 
-.marquee-ai .marquee-track span {
-  white-space: nowrap;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ff4d6d;
-}
-
-@keyframes scrollLoop {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+#profileImg:hover {
+  box-shadow: 0 0 0 5px rgba(255, 77, 109, 0.25);
 }

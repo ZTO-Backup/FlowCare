@@ -49,8 +49,6 @@ const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
-let logs = JSON.parse(localStorage.getItem("logs")) || [];
-
 // =======================
 // CALENDAR
 // =======================
@@ -188,14 +186,38 @@ function showCycleWarning() {
   const ai = getAIInsights();
   const el = document.getElementById("cycleWarning");
   if (!el) return;
-
+  
+  const username = localStorage.getItem("username") || "Queen";
+  
+  let message = "";
+  
   if (ai.confidence === "low") {
-    el.innerText = "⚠️ Not enough data yet. (Confidence: Low)";
-  } else if (ai.irregular) {
-    el.innerText = "⚠️ Cycle irregular. (Confidence: Medium)";
-  } else {
-    el.innerText = "✅ Cycle stable. (Confidence: High)";
+    message = `Hey ${username} 💖 keep logging, I’m still learning your rhythm 🌸`;
   }
+  else if (ai.irregular) {
+    message = `Hmm ${username} 💭 your cycle is a bit unpredictable, I’ve got you though 💕`;
+  }
+  else {
+    message = `You’re in sync today ${username} ✨ your body is doing amazing 💖`;
+  }
+  
+  el.innerText = message;
+}
+
+function getDailyAffirmation() {
+  const username = localStorage.getItem("username") || "Queen";
+  
+  const messages = [
+    `Take it easy today ${username} 🌸`,
+    `${username}, your body deserves kindness 💖`,
+    `Stay hydrated and gentle with yourself 💧`,
+    `You’re doing better than you think ✨`,
+    `Rest if you need to, ${username} 💕`,
+    `You’re glowing today ${username} 😌`,
+    `Little steps matter, ${username} 🌿`
+  ];
+  
+  return messages[Math.floor(Math.random() * messages.length)];
 }
 
 // =======================
@@ -242,32 +264,31 @@ function getPetName() {
 }
 
 function showAdvancedInsights() {
+  const textEl = document.getElementById("marqueeText");
+  const cloneEl = document.getElementById("marqueeClone");
   
-const el = document.getElementById("marqueeAI");
-
-  if (!el) return;
-
+  if (!textEl || !cloneEl) return;
+  
   const data = getAdvancedInsights();
   const pet = getPetName();
-
+  const affirmation = getDailyAffirmation();
+  const personality = getPersonalityMessage();
+  
   let messages = [
     `🟢 ${pet}${data.nextSafe}`,
-    `❤️ ${data.bestDays}`,
-    `📊 Chance today: ${data.chance}`
+    `❤️ Best days: ${data.bestDays}`,
+    `📊 Chance today: ${data.chance}`,
+    `💖 ${affirmation}`,
+    `🌸 ${personality}`
   ];
-
-  // shuffle (nice touch)
+  
+  // shuffle for natural feel
   messages = messages.sort(() => Math.random() - 0.5);
-
+  
   const fullText = messages.join("   •   ");
-
-  // ✅ USE YOUR CSS SYSTEM (.marquee-track)
-  el.innerHTML = `
-    <div class="marquee-track">
-      <span>${fullText}</span>
-      <span>${fullText}</span>
-    </div>
-  `;
+  
+  textEl.innerText = fullText;
+  cloneEl.innerText = fullText;
 }
 
 // =======================
@@ -368,6 +389,49 @@ function checkSmartAlerts() {
   localStorage.setItem("lastAlertDate", todayKey);
 }
 
+function trackUserActivity() {
+  const today = new Date().toDateString();
+  
+  const lastVisit = localStorage.getItem("lastVisit");
+  let streak = parseInt(localStorage.getItem("streak") || "0");
+  
+  if (lastVisit) {
+    const last = new Date(lastVisit);
+    const diff = (new Date(today) - last) / (1000 * 60 * 60 * 24);
+    
+    if (diff === 1) {
+      streak += 1; // continues streak
+    } else if (diff > 1) {
+      streak = 1; // reset streak
+    }
+  } else {
+    streak = 1;
+  }
+  
+  localStorage.setItem("lastVisit", today);
+  localStorage.setItem("streak", streak);
+}
+
+function getPersonalityMessage() {
+  const username = localStorage.getItem("username") || "Queen";
+  const streak = parseInt(localStorage.getItem("streak") || "1");
+  
+  // 🎯 personality logic
+  if (streak >= 5) {
+    return `🔥 ${username}, you’ve been consistent for ${streak} days. I’m impressed 💖`;
+  }
+  
+  if (streak >= 3) {
+    return `✨ ${username}, you’re building a good rhythm. Keep going 💕`;
+  }
+  
+  if (streak === 1) {
+    return `Welcome back ${username} 💖 let’s keep track today`;
+  }
+  
+  return `${username}, I’m here with you 🌸`;
+}
+
 // =======================
 // INIT (SAFE)
 // =======================
@@ -375,19 +439,14 @@ document.addEventListener("DOMContentLoaded", () => {
   calendarEl = document.getElementById("calendar");
   monthYear = document.getElementById("monthYear");
   selectedDateText = document.getElementById("selectedDate");
-
+  
+  trackUserActivity();
   renderCalendar();
   showCycleWarning();
   showAdvancedInsights();
   showCycleInfo();
-});
-// ⏰ Run after everything loads
-setTimeout(() => {
-  requestNotificationPermission();
-  checkSmartAlerts();
-}, 1500);
-
-const btn = document.getElementById("logBtn");
+  
+  const btn = document.getElementById("logBtn");
 
 if (btn) {
   btn.addEventListener("click", () => {
@@ -395,7 +454,14 @@ if (btn) {
       alert("Please select a day first");
       return;
     }
-
+    
     window.location.href = `log.html?date=${selectedDate}`;
   });
 }
+
+});
+// ⏰ Run after everything loads
+setTimeout(() => {
+  requestNotificationPermission();
+  checkSmartAlerts();
+}, 1500);
