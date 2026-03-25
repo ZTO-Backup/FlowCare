@@ -19,7 +19,7 @@ h2 {
   background: #ffffff;
   border: 1px solid rgba(0,0,0,0.04);
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-  padding: 16px;
+  padding: 12px;
   margin-bottom: 8px;
   border-radius: 18px;
   backdrop-filter: blur(10px);
@@ -28,7 +28,9 @@ h2 {
 
 /* BUTTON */
 button {
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
   padding: 15px;
   background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
   border: none;

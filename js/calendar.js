@@ -1,5 +1,7 @@
 let selectedDate = null;
 
+let logs = JSON.parse(localStorage.getItem("logs")) || [];
+
 // =======================
 // 🧠 AI INSIGHTS
 // =======================
@@ -102,6 +104,67 @@ function renderCalendar() {
   }
 }
 
+function getFertilityDetails(dateStr) {
+  const ai = getAIInsights();
+  const cycleLength = ai.cycleLength;
+
+  const logs = JSON.parse(localStorage.getItem("logs")) || [];
+
+  const periodLogs = logs
+    .filter(log => log.flow && log.flow !== "none")
+    .map(log => new Date(log.date))
+    .sort((a, b) => a - b);
+
+  if (!periodLogs.length) {
+    return {
+      message: "Not enough data yet",
+      level: "unknown"
+    };
+  }
+
+  const lastStart = periodLogs[periodLogs.length - 1];
+  const current = new Date(dateStr);
+
+  const diffDays = Math.floor((current - lastStart) / (1000 * 60 * 60 * 24));
+  const cycleDay = (diffDays % cycleLength) + 1;
+
+  const ovulationDay = cycleLength - 14;
+
+  // 🔥 LOGIC
+  if (cycleDay === ovulationDay) {
+    return {
+      message: "Ovulation day 🌼 — highest fertility",
+      level: "high"
+    };
+  }
+
+  if (cycleDay >= ovulationDay - 4 && cycleDay <= ovulationDay + 1) {
+    return {
+      message: "Fertile window 💖 — high chance",
+      level: "medium"
+    };
+  }
+
+  if (cycleDay <= 5) {
+    return {
+      message: "Menstrual phase 🩸 — low fertility",
+      level: "low"
+    };
+  }
+
+  if (cycleDay >= ovulationDay + 3) {
+    return {
+      message: "Safe phase 🟢 — low risk",
+      level: "low"
+    };
+  }
+
+  return {
+    message: "Cycle ongoing 🌿",
+    level: "normal"
+  };
+}
+
 // =======================
 // SELECT DATE
 // =======================
@@ -119,7 +182,7 @@ function selectDate(date, event) {
 
   const infoEl = document.getElementById("dayInfo");
   if (infoEl) {
-    infoEl.innerText = `${info.message} (Risk: ${info.level})`;
+    infoEl.innerText = info.message;
   }
 
   showCycleWarning();
