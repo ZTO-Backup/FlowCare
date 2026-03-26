@@ -14,29 +14,21 @@
 
 <body>
 
+<!-- 🔥 SPLASH -->
 <div id="splashScreen" class="splash">
-  
   <div class="splash-inner">
-    
     <img src="icon-192.png" class="splash-logo">
-    
     <h2 class="splash-title">FlowCare</h2>
-    
     <p class="splash-tag">Your body, your rhythm 💖</p>
-    
   </div>
-  
 </div>
 
-<div class="container">
-
- <!-- 🔥 PREMIUM HEADER (SAFE VERSION) -->
+<!-- 🔥 HEADER (NOW OUTSIDE CONTAINER ✅) -->
 <div class="header">
 
   <div class="header-top">
 
     <div class="greeting-wrap">
-      <!-- ✅ KEEP ORIGINAL ID -->
       <h2 id="greeting" class="text-xl">
         Hi, Grace <span id="wave">👋</span>
       </h2>
@@ -48,13 +40,11 @@
 
     <div class="header-actions">
 
-      <!-- ✅ KEEP YOUR INPUT -->
       <input type="file" id="profileInput" style="display:none;">
 
       <img id="profileImg"
         src="https://via.placeholder.com/40">
 
-      <!-- ⋮ MENU -->
       <div class="menu-wrap">
         <span id="menuBtn">⋮</span>
 
@@ -70,7 +60,6 @@
 
   </div>
 
-  <!-- ✅ KEEP MARQUEE (JUST MOVED INSIDE HEADER) -->
   <div class="marquee">
     <div class="marquee-track">
       <span id="marqueeText"></span>
@@ -80,23 +69,26 @@
 
 </div>
 
-  <!-- MAIN STATUS -->
+<!-- 🔥 MAIN CONTENT -->
+<div class="container">
+
+  <!-- STATUS -->
   <div class="status-grid">
 
     <div class="status-card period">
-  <p class="text-sm">🩸 Next Period</p>
-  <h3 id="nextPeriod" class="text-accent">--</h3>
-</div>
+      <p class="text-sm">🩸 Next Period</p>
+      <h3 id="nextPeriod" class="text-accent">--</h3>
+    </div>
 
-<div class="status-card cycle">
-  <p class="text-sm">📊 Cycle Day</p>
-  <h3 id="cycleDay" class="text-accent">--</h3>
-</div>
+    <div class="status-card cycle">
+      <p class="text-sm">📊 Cycle Day</p>
+      <h3 id="cycleDay" class="text-accent">--</h3>
+    </div>
 
-<div class="status-card ovulation">
-  <p class="text-sm">🌼 Ovulation</p>
-  <h3 id="ovulation" class="text-accent">--</h3>
-</div>
+    <div class="status-card ovulation">
+      <p class="text-sm">🌼 Ovulation</p>
+      <h3 id="ovulation" class="text-accent">--</h3>
+    </div>
 
   </div>
 
@@ -109,11 +101,11 @@
 
   <!-- ADVICE -->
   <div class="card highlight">
-  <p class="text-lg">💡 Daily AI Care</p>
-  <small id="tip" class="text-sm">Stay hydrated</small>
-</div>
+    <p class="text-lg">💡 Daily AI Care</p>
+    <small id="tip" class="text-sm">Stay hydrated</small>
+  </div>
 
-  <!-- EMERGENCY KIT -->
+  <!-- KIT -->
   <div class="card" id="kitCard" style="display:none;">
     <p>🧰 Emergency Kit</p>
     <ul>
@@ -124,30 +116,30 @@
     </ul>
   </div>
 
-  <!-- LEARN -->
+  <!-- LINKS -->
   <div class="card link-card">
-  <a href="education.html" class="link-text">📘 Learn about your health</a>
+    <a href="education.html" class="link-text">📘 Learn about your health</a>
+  </div>
+
+  <div class="card link-card">
+    <a href="cycle-guide.html" class="link-text">🧠 Understand your cycle</a>
+  </div>
+
+  <div class="card link-card">
+    <a href="fertility.html" class="link-text">🌼 Fertility Insights</a>
+  </div>
+
+  <div class="card link-card">
+    <a href="menopause.html" class="link-text">🌸 Menopause Care</a>
+  </div>
+
+  <div class="card link-card">
+    <a href="notebook.html" class="link-text">📓 Open Notebook</a>
+  </div>
+
 </div>
 
-<div class="card link-card">
-  <a href="cycle-guide.html" class="link-text">🧠 Understand your cycle</a>
-</div>
-
-<div class="card link-card">
-  <a href="fertility.html" class="link-text">🌼 Fertility Insights</a>
-</div>
-
-<div class="card link-card">
-  <a href="menopause.html" class="link-text">🌸 Menopause Care</a>
-</div>
-
-<div class="card link-card">
-  <a href="notebook.html" class="link-text">📓 Open Notebook</a>
-</div>
-
-</div>
-
-<!-- 📱 NAVIGATION -->
+<!-- 🔥 NAV -->
 <div class="nav">
   
   <a href="index.html" class="nav-item active">
