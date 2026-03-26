@@ -21,15 +21,6 @@ const cycleLength = Number(localStorage.getItem("cycleLength")) || 28;
 const username = localStorage.getItem("username") || "Queen";
 
 // =======================
-// 👋 GREETING
-// =======================
-
-const greetingEl = document.getElementById("greeting");
-if (greetingEl) {
-  greetingEl.innerText = `Hi, ${username} 👋`;
-}
-
-// =======================
 // 🩸 CYCLE CALCULATION
 // =======================
 
@@ -97,40 +88,21 @@ function updatePadsUsed() {
 
 // GREETING LOGIC
 function setGreeting() {
-  const el = document.getElementById("greetingText");
+  const el = document.getElementById("greeting");
+  if (!el) return;
+  
   const hour = new Date().getHours();
-
+  
   let text = "Hello";
-
+  
   if (hour < 12) text = "Good morning";
   else if (hour < 17) text = "Good afternoon";
   else if (hour < 21) text = "Good evening";
   else text = "Good night";
-
-  const username = localStorage.getItem("username") || "Queen";
-
-  el.innerHTML = `${text}, ${username} <span id="wave">👋</span>`;
-}
-
-// WAVE 👋 LOGIC
-setTimeout(() => {
-  const wave = document.getElementById("wave");
-  if (wave) wave.style.display = "none";
-}, 4000);
-
-const menuBtn = document.getElementById("menuBtn");
-const menu = document.getElementById("menuDropdown");
-
-if (menuBtn && menu) {
-  menuBtn.addEventListener("click", () => {
-    menu.classList.toggle("show");
-  });
   
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && e.target !== menuBtn) {
-      menu.classList.remove("show");
-    }
-  });
+  const username = localStorage.getItem("username") || "Queen";
+  
+  el.innerHTML = `${text}, ${username} <span id="wave">👋</span>`;
 }
 
 // =======================
@@ -193,12 +165,6 @@ function showKitReminder() {
     el.style.display = "block";
   }
 }
-
-// =======================
-// 📢 ADAPTIVE MARQUEE
-// =======================
-
-const textEl = document.getElementById("marqueeText");
 
 function getAdaptiveMessages() {
   const logs = getLogs();
@@ -311,19 +277,76 @@ function sendPush(title, body) {
   }
 }
 
-// =======================
-// 🚀 INIT
-// =======================
+document.addEventListener("DOMContentLoaded", () => {
+  
+  calculateCycle();
+  updatePadsUsed();
+  showAdvice();
+  showKitReminder();
+  initProfileImage();
+  setHeroMessage();
+  startMarquee();
+  
+  // ✅ GREETING
+  setGreeting();
+  
+  // 🔥 FORCE WAVE ANIMATION (ensures it runs)
+  setTimeout(() => {
+    const wave = document.getElementById("wave");
+    if (wave) {
+      wave.style.animation = "none";
+      void wave.offsetWidth;
+      wave.style.animation = "";
+    }
+  }, 50);
+  
+  // ✅ MENU
+  const menuBtn = document.getElementById("menuBtn");
+  const menu = document.getElementById("menuDropdown");
+  
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+    
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  }
+  
+  // 🔥 SCROLL EFFECT (NEW)
+  const header = document.querySelector(".header");
+  
+  window.addEventListener("scroll", () => {
+    if (!header) return;
+    
+    if (window.scrollY > 10) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+  
+  // 🔥 NAV ACTIVE STATE (PUT IT HERE 👇)
+  const navItems = document.querySelectorAll(".nav-item");
 
-calculateCycle();
-updatePadsUsed();
-showAdvice();
-showKitReminder();
-initProfileImage();
-setHeroMessage();
-startMarquee();
-setGreeting();
+  navItems.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add("active");
+    }
+  });
+  
+  // 👋 REMOVE WAVE AFTER FEW SECONDS
+  setTimeout(() => {
+    const wave = document.getElementById("wave");
+    if (wave) wave.style.display = "none";
+  }, 4000);
+  
+});
 
+// 🔥 SPLASH SCREEN (SEPARATE)
 window.addEventListener("load", () => {
   setTimeout(() => {
     const splash = document.getElementById("splashScreen");
@@ -335,5 +358,5 @@ window.addEventListener("load", () => {
         splash.remove();
       }, 500);
     }
-  }, 2000);
+  }, 1800);
 });
