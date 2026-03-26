@@ -97,7 +97,7 @@ button:hover {
 /* 🔥 PAGE FADE IN */
 .container {
   padding: 20px;
-  padding-bottom: 90px;
+  padding-bottom: 80px;
   max-width: 500px;
   margin: 0 auto;
   overflow-x: hidden;
@@ -785,7 +785,8 @@ small {
 /* 🔥 NAV CONTAINER */
 .nav {
   position: fixed;
-  bottom: 12px;
+  bottom: 0;
+  padding-bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
   
@@ -796,7 +797,7 @@ small {
   backdrop-filter: blur(12px);
   
   border-radius: 20px;
-  padding: 8px 6px;
+  padding: 6px 4px;
   
   display: flex;
   justify-content: space-around;
@@ -820,9 +821,13 @@ small {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+.nav-item small {
+    font-size: 10px;
+    }
+
 /* ICON */
 .nav-item span {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* ACTIVE STATE */
@@ -836,8 +841,8 @@ small {
   background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
   color: #fff;
   
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   
   display: flex;
