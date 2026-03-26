@@ -233,11 +233,6 @@ small {
   font-weight: 500;
 }
 
-.sub {
-  color: #888;
-  font-size: 14px;
-}
-
 /* STATUS GRID */
 .status-grid {
   display: grid;
@@ -607,6 +602,11 @@ small {
   font-size: 20px;
   font-weight: 600;
   margin: 0;
+  
+  transition:
+    font-size 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.25s ease;
 }
 
 .greeting-wrap {
@@ -619,6 +619,9 @@ small {
   font-size: 13px;
   color: #777;
   margin-top: 2px;
+  transition: 
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 #profileImg {
@@ -698,11 +701,22 @@ small {
   background: #ffe3ea;
 }
 
-/* 👋 WAVE ANIMATION */
+/* 👋 WAVE BASE */
 #wave {
   display: inline-block;
-  animation: waveAnim 1.5s ease 2; /* wave twice */
   transform-origin: 70% 70%;
+  
+  /* 👋 initial wave */
+  animation: waveAnim 1.5s ease 2;
+  
+  /* 🔥 smooth morph support */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 🔥 ON SCROLL */
+.header.scrolled #wave {
+  transform: scale(0.8);
+  opacity: 0.6;
 }
 
 @keyframes waveAnim {
@@ -777,12 +791,20 @@ small {
 
 /* 🔥 TEXT SHRINK */
 .header.scrolled .greeting-wrap h2 {
-  font-size: 18px;
+  font-size: 16px;
+  transform: translateY(-2px);
+  opacity: 0.85;
+  letter-spacing: -0.2px;
 }
 
 /* 🔥 PROFILE SHRINK */
 .header.scrolled #profileImg {
   transform: scale(0.92);
+}
+
+.header.scrolled .sub {
+  opacity: 0.6;
+  transform: translateY(-2px);
 }
 
 /* ✨ LIGHT REFLECTION */
