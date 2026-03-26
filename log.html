@@ -10,13 +10,28 @@
 
 <body>
 
-<div class="container">
+<!-- 🔥 HEADER -->
+<div class="header">
+  <div class="header-inner">
 
-<h2 id="logTitle">Log</h2>
+    <div class="page-header">
+      <div class="page-icon">🩸</div>
+
+      <div>
+        <h2 class="page-title" id="logTitle">Log Today</h2>
+        <p class="page-sub">Track how your body feels today 💖</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔥 MAIN -->
+<div class="container">
 
   <!-- FLOW -->
   <div class="card">
-    <p>🩸 Flow</p>
+    <p class="text-sm">🩸 Flow</p>
     <select id="flow">
       <option value="none">None</option>
       <option value="light">Light</option>
@@ -27,31 +42,37 @@
 
   <!-- SYMPTOMS -->
   <div class="card">
-    <p>😣 Symptoms</p>
-    <label><input type="checkbox" value="cramps"> Cramps</label><br>
-    <label><input type="checkbox" value="headache"> Headache</label><br>
-    <label><input type="checkbox" value="fatigue"> Fatigue</label><br>
-    <label><input type="checkbox" value="bloating"> Bloating</label>
+    <p class="text-sm">😣 Symptoms</p>
+
+    <div class="chip-group">
+      <label class="chip"><input type="checkbox" value="cramps"> Cramps</label>
+      <label class="chip"><input type="checkbox" value="headache"> Headache</label>
+      <label class="chip"><input type="checkbox" value="fatigue"> Fatigue</label>
+      <label class="chip"><input type="checkbox" value="bloating"> Bloating</label>
+    </div>
   </div>
 
   <!-- MOOD -->
   <div class="card">
-    <p>😊 Mood</p>
+    <p class="text-sm">😊 Mood</p>
     <select id="mood">
-      <option value="happy">Happy</option>
-      <option value="neutral">Neutral</option>
-      <option value="sad">Sad</option>
-      <option value="irritated">Irritated</option>
+      <option value="happy">Happy 😊</option>
+      <option value="neutral">Neutral 😐</option>
+      <option value="sad">Sad 😔</option>
+      <option value="irritated">Irritated 😤</option>
     </select>
   </div>
 
   <!-- PADS -->
   <div class="card">
-    <p>🧻 Pads Used</p>
+    <p class="text-sm">🧻 Pads Used</p>
     <input type="number" id="pads" min="0" max="10" value="0">
   </div>
 
-  <button onclick="saveLog()">Save Entry</button>
+  <!-- SAVE BUTTON -->
+  <div class="card" style="text-align:center;">
+    <button onclick="saveLog()">✨ Save Entry</button>
+  </div>
 
 </div>
 
@@ -68,7 +89,7 @@
     <small>Calendar</small>
   </a>
   
-  <a href="log.html" class="nav-item center">
+  <a href="log.html" class="nav-item center active">
     <span>＋</span>
   </a>
   
@@ -87,8 +108,9 @@
 <script src="js/auth.js"></script>
 <script>
   protectPage();
-  </script>
+</script>
 <script src="js/log.js"></script>
 <script src="js/lock.js"></script>
+
 </body>
 </html>

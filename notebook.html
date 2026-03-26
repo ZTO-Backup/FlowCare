@@ -10,23 +10,38 @@
 
 <body>
 
-<div class="container">
+<!-- 🔥 HEADER -->
+<div class="header">
+  <div class="header-inner">
 
-  <h2>Notebook 📓</h2>
+    <div class="page-header">
+      <div class="page-icon">📓</div>
+
+      <div>
+        <h2 class="page-title">Notebook</h2>
+        <p class="page-sub">Capture your thoughts & patterns 💖</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔥 MAIN -->
+<div class="container">
 
   <!-- FORM -->
   <div class="card">
-    
-    <label>Date</label>
+
+    <p class="text-sm">📅 Date</p>
     <input type="date" id="noteDate">
 
-    <label>Period Started?</label>
+    <p class="text-sm">🩸 Period Started?</p>
     <select id="periodStart">
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </select>
 
-    <label>Mood</label>
+    <p class="text-sm">😊 Mood</p>
     <select id="noteMood">
       <option value="happy">Happy</option>
       <option value="neutral">Neutral</option>
@@ -34,13 +49,13 @@
       <option value="irritated">Irritated</option>
     </select>
 
-    <label>Symptoms</label>
+    <p class="text-sm">💊 Symptoms</p>
     <input type="text" id="noteSymptoms" placeholder="e.g cramps, headache">
 
-    <label>Notes</label>
+    <p class="text-sm">📝 Notes</p>
     <textarea id="noteText" placeholder="Write anything..."></textarea>
 
-    <button onclick="saveNote()">Save Note</button>
+    <button onclick="saveNote()">✨ Save Note</button>
 
   </div>
 
@@ -49,19 +64,39 @@
 
 </div>
 
-<!-- NAV -->
+<!-- 📱 NAVIGATION -->
 <div class="nav">
-  <a href="index.html">Home</a>
-  <a href="calendar.html">Calendar</a>
-  <a href="log.html">Log</a>
-  <a href="insights.html">Insights</a>
-  <a href="settings.html">Settings</a>
+  
+  <a href="index.html" class="nav-item">
+    <span>🏠</span>
+    <small>Home</small>
+  </a>
+  
+  <a href="calendar.html" class="nav-item">
+    <span>📅</span>
+    <small>Calendar</small>
+  </a>
+  
+  <a href="log.html" class="nav-item center">
+    <span>＋</span>
+  </a>
+  
+  <a href="insights.html" class="nav-item">
+    <span>📊</span>
+    <small>Insights</small>
+  </a>
+  
+  <a href="settings.html" class="nav-item">
+    <span>⚙️</span>
+    <small>Settings</small>
+  </a>
+  
 </div>
 
 <script src="js/auth.js"></script>
 <script>
   protectPage();
-  </script>
+</script>
 <script src="js/notebook.js"></script>
 
 </body>

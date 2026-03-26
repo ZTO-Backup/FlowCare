@@ -1,55 +1,113 @@
-// LOAD SAVED SETTINGS
-const savedName = localStorage.getItem("username");
-const savedCycle = localStorage.getItem("cycleLength");
-const notifEnabled = localStorage.getItem("notifications");
-
-// SET VALUES
-if (savedName) document.getElementById("username").value = savedName;
-if (savedCycle) document.getElementById("cycleLength").value = savedCycle;
-if (notifEnabled === "true") document.getElementById("notifToggle").checked = true;
-
-// SAVE NAME
-document.getElementById("username").addEventListener("input", (e) => {
-  localStorage.setItem("username", e.target.value);
-});
-
-// SAVE CYCLE LENGTH
-document.getElementById("cycleLength").addEventListener("input", (e) => {
-  localStorage.setItem("cycleLength", e.target.value);
-});
-
-const ageInput = document.getElementById("ageInput");
-
-if (ageInput) {
-  ageInput.value = localStorage.getItem("age") || "";
-
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // =======================
+  // LOAD SAVED SETTINGS
+  // =======================
+  const savedName = localStorage.getItem("username");
+  const savedCycle = localStorage.getItem("cycleLength");
+  const notifEnabled = localStorage.getItem("notifications");
+  
+  const usernameEl = document.getElementById("username");
+  const cycleEl = document.getElementById("cycleLength");
+  const notifEl = document.getElementById("notifToggle");
+  const ageInput = document.getElementById("ageInput");
+  
+  // SET VALUES
+  if (usernameEl && savedName) usernameEl.value = savedName;
+  if (cycleEl && savedCycle) cycleEl.value = savedCycle;
+  if (notifEl && notifEnabled === "true") notifEl.checked = true;
+  
+  if (ageInput) {
+    ageInput.value = localStorage.getItem("age") || "";
+    
     ageInput.addEventListener("input", () => {
-        localStorage.setItem("age", ageInput.value);
-          });
-          }
-
-// TOGGLE NOTIFICATIONS
-document.getElementById("notifToggle").addEventListener("change", (e) => {
-  localStorage.setItem("notifications", e.target.checked);
-
-  if (e.target.checked) {
-    Notification.requestPermission();
+      localStorage.setItem("age", ageInput.value);
+    });
   }
+  
+  // =======================
+  // SAVE NAME
+  // =======================
+  if (usernameEl) {
+    usernameEl.addEventListener("input", (e) => {
+      localStorage.setItem("username", e.target.value);
+    });
+  }
+  
+  // =======================
+  // SAVE CYCLE
+  // =======================
+  if (cycleEl) {
+    cycleEl.addEventListener("input", (e) => {
+      localStorage.setItem("cycleLength", e.target.value);
+    });
+  }
+  
+  // =======================
+  // NOTIFICATIONS
+  // =======================
+  if (notifEl) {
+    notifEl.addEventListener("change", (e) => {
+      localStorage.setItem("notifications", e.target.checked);
+      
+      if (e.target.checked && "Notification" in window) {
+        Notification.requestPermission();
+      }
+    });
+  }
+  
 });
 
+
+// =======================
 // RESET DATA
+// =======================
 function resetData() {
-  if (confirm("Are you sure? This will delete all data.")) {
+  if (confirm("⚠️ This will delete all your data permanently. Continue?")) {
     localStorage.clear();
     location.reload();
   }
 }
 
-// SIMPLE PIN (basic for now)
+
+// =======================
+// LOGOUT SYSTEM
+// =======================
+function confirmLogout() {
+  const box = document.getElementById("logoutConfirmBox");
+  if (box) {
+    box.style.display = "block";
+    
+    // auto-hide after 5s ONLY when shown
+    setTimeout(() => {
+      box.style.display = "none";
+    }, 5000);
+  }
+}
+
+function finalLogout() {
+  logout();
+}
+
+function hideLogoutBox() {
+  const box = document.getElementById("logoutConfirmBox");
+  if (box) box.style.display = "none";
+}
+
+
+// =======================
+// PIN SYSTEM
+// =======================
 function setPIN() {
   const pin = prompt("Enter a 4-digit PIN:");
-  if (pin) {
-    localStorage.setItem("appPIN", pin);
-    alert("PIN saved 🔒");
+  
+  if (!pin) return;
+  
+  if (pin.length !== 4 || isNaN(pin)) {
+    alert("Please enter a valid 4-digit PIN");
+    return;
   }
+  
+  localStorage.setItem("appPIN", pin);
+  alert("PIN saved 🔒");
 }

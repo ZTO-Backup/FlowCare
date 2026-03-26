@@ -10,13 +10,28 @@
 
 <body>
 
-<div class="container">
+<!-- 🔥 HEADER -->
+<div class="header">
+  <div class="header-inner">
 
-  <h2>Cycle Guide 🧠</h2>
+    <div class="page-header">
+      <div class="page-icon">🧠</div>
+
+      <div>
+        <h2 class="page-title">Cycle Guide</h2>
+        <p class="page-sub">Understand your body rhythm 🌸</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔥 MAIN -->
+<div class="container">
 
   <!-- INTRO -->
   <div class="card">
-    <p>
+    <p class="text-sm">
       Your menstrual cycle starts on the first day of your period (Day 1).
       Understanding your cycle helps you stay prepared and make informed decisions.
     </p>
@@ -25,17 +40,17 @@
   <!-- PHASES -->
   <div class="card">
     <h4>🩸 Menstrual Phase (Day 1–5)</h4>
-    <p>Bleeding occurs. Energy may be low. Rest is important.</p>
+    <p class="text-sm">Bleeding occurs. Energy may be low. Rest is important.</p>
   </div>
 
   <div class="card">
     <h4>🌱 Follicular Phase (Day 6–13)</h4>
-    <p>Energy increases. Mood improves. Body prepares for ovulation.</p>
+    <p class="text-sm">Energy increases. Mood improves. Body prepares for ovulation.</p>
   </div>
 
   <div class="card">
     <h4>🌼 Ovulation Phase (~Day 14)</h4>
-    <p>
+    <p class="text-sm">
       Ovulation occurs. This is the time of higher fertility.
       You may feel more active or sensual due to hormonal changes.
     </p>
@@ -43,7 +58,7 @@
 
   <div class="card">
     <h4>🌙 Luteal Phase (Day 15–28)</h4>
-    <p>
+    <p class="text-sm">
       Body prepares for next cycle. You may experience PMS symptoms like mood changes or fatigue.
     </p>
   </div>
@@ -51,58 +66,83 @@
   <!-- FERTILITY -->
   <div class="card">
     <h4>⚠️ Fertility Awareness</h4>
-    <p>
+    <p class="text-sm">
       The days leading up to ovulation and the ovulation day have a higher chance of pregnancy.
     </p>
-    <p>
+    <p class="text-sm">
       If you are not planning pregnancy, consider protection during this time.
     </p>
   </div>
 
   <div class="card">
     <h4>🟢 Lower Chance Days</h4>
-    <p>
+    <p class="text-sm">
       Days after ovulation generally have a lower chance of pregnancy, but not zero risk.
     </p>
   </div>
 
-  <!-- BODY SIGNALS -->
+  <!-- BODY -->
   <div class="card">
     <h4>❤️ Body & Emotions</h4>
-    <p>
+    <p class="text-sm">
       Hormones can affect mood, energy, and desire. Feeling more emotional or sensual at certain times is normal.
     </p>
   </div>
 
-  <!-- TRACKING -->
-<a href="notebook.html" style="text-decoration:none; color:inherit;">
-  <div class="card">
-    <h4>📓 Track for 3 Months</h4>
-    <p>To understand your body better:</p>
-    <ul>
-      <li>Mark the first day of your period</li>
-      <li>Track symptoms and mood</li>
-      <li>Observe your cycle length</li>
-    <li>After a few cycles, patterns will become clearer.</li>
-  </ul>
-    <p>Tap to start tracking →</p>
-  </div>
-</a>
+  <!-- CTA -->
+  <a href="notebook.html" style="text-decoration:none; color:inherit;">
+    <div class="card link-card">
+      <h4>📓 Track for 3 Months</h4>
+      <p class="text-sm">To understand your body better:</p>
+
+      <ul class="text-sm">
+        <li>Mark the first day of your period</li>
+        <li>Track symptoms and mood</li>
+        <li>Observe your cycle length</li>
+        <li>Patterns will become clearer over time</li>
+      </ul>
+
+      <p class="text-sm" style="margin-top:10px;">
+        Tap to start tracking →
+      </p>
+    </div>
+  </a>
 
 </div>
 
-<!-- NAV -->
+<!-- 📱 NAVIGATION -->
 <div class="nav">
-  <a href="index.html">Home</a>
-  <a href="calendar.html">Calendar</a>
-  <a href="log.html">Log</a>
-  <a href="insights.html">Insights</a>
-  <a href="settings.html">Settings</a>
+  
+  <a href="index.html" class="nav-item">
+    <span>🏠</span>
+    <small>Home</small>
+  </a>
+  
+  <a href="calendar.html" class="nav-item">
+    <span>📅</span>
+    <small>Calendar</small>
+  </a>
+  
+  <a href="log.html" class="nav-item center">
+    <span>＋</span>
+  </a>
+  
+  <a href="insights.html" class="nav-item">
+    <span>📊</span>
+    <small>Insights</small>
+  </a>
+  
+  <a href="settings.html" class="nav-item">
+    <span>⚙️</span>
+    <small>Settings</small>
+  </a>
+  
 </div>
 
 <script src="js/auth.js"></script>
 <script>
   protectPage();
-  </script>
+</script>
+
 </body>
 </html>

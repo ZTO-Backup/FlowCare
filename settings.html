@@ -10,49 +10,74 @@
 
 <body>
 
-<div class="container">
+<!-- 🔥 HEADER -->
+<div class="header">
+  <div class="header-inner">
 
-  <h2>Settings</h2>
+    <div class="page-header">
+      <div class="page-icon">⚙️</div>
+
+      <div>
+        <h2 class="page-title">Settings</h2>
+        <p class="page-sub">Control your experience with ease ✨</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔥 MAIN -->
+<div class="container">
 
   <!-- PROFILE -->
   <div class="card">
-    <p>👤 Name</p>
+    <p class="text-sm">👤 Name</p>
     <input type="text" id="username" placeholder="Enter your name">
   </div>
 
   <div class="card">
-      <label>Age</label>
-        <input type="number" id="ageInput" placeholder="Enter your age">
-        </div>
+    <p class="text-sm">🎂 Age</p>
+    <input type="number" id="ageInput" placeholder="Enter your age">
+  </div>
 
-  <!-- CYCLE SETTINGS -->
+  <!-- CYCLE -->
   <div class="card">
-    <p>📊 Cycle Length (days)</p>
+    <p class="text-sm">📊 Cycle Length (days)</p>
     <input type="number" id="cycleLength" value="28">
   </div>
 
   <!-- NOTIFICATIONS -->
   <div class="card">
-    <p>🔔 Notifications</p>
-    <label>
+    <p class="text-sm">🔔 Notifications</p>
+    <label class="text-sm">
       <input type="checkbox" id="notifToggle"> Enable Notifications
     </label>
   </div>
 
   <!-- PRIVACY -->
   <div class="card">
-    <p>🔒 Privacy</p>
+    <p class="text-sm">🔒 Privacy</p>
     <button onclick="setPIN()">Set App PIN</button>
   </div>
 
-  <!-- RESET -->
+  <!-- DANGER -->
   <div class="card">
-    <p>⚠️ Danger Zone</p>
+    <p class="text-sm text-danger">⚠️ Danger Zone</p>
     <button onclick="resetData()">Reset All Data</button>
-    </div>
-    <div class="card">
-      <p>🚪 On Your Way Out</p>
-    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- LOGOUT -->
+  <div class="card">
+    <p class="text-sm">🚪 On Your Way Out</p>
+    <button onclick="confirmLogout()">Logout</button>
+  </div>
+
+  <!-- ✅ CONFIRM BOX (INSIDE CONTAINER) -->
+  <div id="logoutConfirmBox" class="card highlight" style="display:none;">
+    <p>⚠️ Are you sure you want to logout?</p>
+    
+    <button onclick="finalLogout()">Yes, Logout</button>
+    <button onclick="hideLogoutBox()" style="margin-top:8px;">Cancel</button>
   </div>
 
 </div>
@@ -86,11 +111,13 @@
   
 </div>
 
+<!-- SCRIPTS -->
 <script src="js/auth.js"></script>
 <script>
   protectPage();
-  </script>
+</script>
 <script src="js/settings.js"></script>
 <script src="js/lock.js"></script>
+
 </body>
 </html>

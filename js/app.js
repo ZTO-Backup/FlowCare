@@ -278,6 +278,10 @@ function sendPush(title, body) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  if (!localStorage.getItem("onboarded")) {
+  window.location.href = "onboarding.html";
+}
   
   calculateCycle();
   updatePadsUsed();
