@@ -139,17 +139,6 @@ button:hover {
   transform: scale(0.96);
 }
 
-
-
-/* INPUTS */
-select, input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
 .status-card h3 {
   animation: fadeNumber 0.5s ease;
 }
@@ -751,8 +740,10 @@ small {
   position: sticky;
   top: 0;
   z-index: 999;
+  width: 100;
+  margin: 0;
 
-  padding: 8px 10px;
+  padding: 6px 0;
 
   background: transparent;
 
@@ -763,7 +754,7 @@ small {
 .header-inner {
   position: relative;
 
-  border-radius: 20px;
+  border-radius: 0;
   padding: 10px 14px;
 
   background: linear-gradient(
@@ -859,7 +850,7 @@ small {
   
   width: 100%;
   margin: 0;
-  padding: 6px 8px;
+  padding: 4px 6px;
   
   display: flex;
   justify-content: space-around;
@@ -877,8 +868,8 @@ small {
 .nav-item {
   text-decoration: none;
   color: #888;
-  font-size: 12px;
-  padding: 4px 6px;
+  font-size: 11px;
+  padding: 2px;
   
   display: flex;
   flex-direction: column;
@@ -1091,4 +1082,29 @@ small {
   color: white;
   font-size: 16px;
   font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* 🔥 KEY FIX */
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+
+  background: rgba(255,255,255,0.9);
+
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border: 1px solid #ff4d6d;
+  box-shadow: 0 0 0 2px rgba(255, 77, 109, 0.1);
 }
